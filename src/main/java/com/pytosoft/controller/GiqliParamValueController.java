@@ -20,39 +20,41 @@ import com.pytosoft.service.GiqliParamValueService;
 @Controller
 @RequestMapping("/giqli")
 public class GiqliParamValueController {
-	
+
 	@Autowired
 	private GiqliParamValueService giqliParamValueService;
 
 	@PostMapping("/updateparams")
-	public void addGiqliParamValue(@RequestBody GiqliParamValue giqliParamValue) {		
+	public GiqliParamValue addGiqliParamValue(@RequestBody GiqliParamValue giqliParamValue) {
 		GiqliParamValue saved = giqliParamValueService.saveGiqli(giqliParamValue);
-		
+		return saved;
 	}
 
 	@GetMapping("/params")
 	public ResponseEntity<List<GiqliParamValue>> getAllGiqliParamValue() {
 		List<GiqliParamValue> giqliParams = giqliParamValueService.getAllGiqliParamValue();
-		
+
 		return new ResponseEntity<List<GiqliParamValue>>(HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/paramsvalue/{id}")
 	public ResponseEntity<GiqliParamValue> get(@PathVariable Long id) {
 		GiqliParamValue giqliParamValue = giqliParamValueService.getGiqliParamValueById(id);
 		giqliParamValueService.saveGiqli(giqliParamValue);
-		return new ResponseEntity<GiqliParamValue>(giqliParamValue ,HttpStatus.NOT_FOUND);
+		return new ResponseEntity<GiqliParamValue>(giqliParamValue, HttpStatus.NOT_FOUND);
 	}
-	
-	@PutMapping("/paramsGiqli")
-	public GiqliParamValue updateGIQLIParamValue(@RequestBody GiqliParamValue giqliParamValue ,@PathVariable("id") Long id) {		
-		return giqliParamValueService.updateGiqliParamValue(giqliParamValue,id);
-		
-	}
-	@DeleteMapping("/{id}")
-	public String delete(@PathVariable Long id) {
-		 
-		giqliParamValueService.delete(id);
-		return " Deleted Patient with id" +id;
 
-}}
+	@PutMapping("/paramsGiqli")
+	public GiqliParamValue updateGIQLIParamValue(@RequestBody GiqliParamValue giqliParamValue,
+			@PathVariable("id") Long id) {
+		return giqliParamValueService.updateGiqliParamValue(giqliParamValue, id);
+
+	}
+
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable Long id) {
+
+		giqliParamValueService.delete(id);
+
+	}
+}
