@@ -24,7 +24,7 @@ public class MedicineController {
 	private MedicineService medicineService;
 
 	@GetMapping("/getAll")
-	public List<Medicine> empList() {
+	public List<Medicine> getAllMedicine() {
 		return medicineService.listAll();
 	}
 
@@ -35,7 +35,7 @@ public class MedicineController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Medicine> getEmp(@PathVariable Long id) {
+	public ResponseEntity<Medicine> getMedicineById(@PathVariable Long id) {
 		try {
 			Medicine medicine = medicineService.getByID(id);
 			medicineService.save(medicine);
