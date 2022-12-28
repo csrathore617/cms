@@ -23,19 +23,19 @@ public class GiqliParamValueController {
 
 	@Autowired
 	private GiqliParamValueService giqliParamValueService;
-
+	
 	@PostMapping("/updateparams")
-	public GiqliParamValue addGiqliParamValue(@RequestBody GiqliParamValue giqliParamValue) {
+	public ResponseEntity<GiqliParamValue> addGiqliParamValue(@RequestBody GiqliParamValue giqliParamValue) {
 		GiqliParamValue saved = giqliParamValueService.saveGiqli(giqliParamValue);
-		return saved;
+		return new ResponseEntity<GiqliParamValue>(saved,HttpStatus.OK);
 	}
 
-	@GetMapping("/params")
-	public ResponseEntity<List<GiqliParamValue>> getAllGiqliParamValue() {
-		List<GiqliParamValue> giqliParams = giqliParamValueService.getAllGiqliParamValue();
-
-		return new ResponseEntity<List<GiqliParamValue>>(HttpStatus.OK);
-	}
+//	@GetMapping("/params")
+//	public ResponseEntity<List<GiqliParamValue>> getAllGiqliParamValue() {
+//		List<GiqliParamValue> giqliParams = giqliParamValueService.getAllGiqliParamValue();
+//
+//		return new ResponseEntity<List<GiqliParamValue>>(HttpStatus.OK);
+//	}
 
 	@GetMapping("/paramsvalue/{id}")
 	public ResponseEntity<GiqliParamValue> get(@PathVariable Long id) {
@@ -44,17 +44,19 @@ public class GiqliParamValueController {
 		return new ResponseEntity<GiqliParamValue>(giqliParamValue, HttpStatus.NOT_FOUND);
 	}
 
-	@PutMapping("/paramsGiqli")
-	public GiqliParamValue updateGIQLIParamValue(@RequestBody GiqliParamValue giqliParamValue,
-			@PathVariable("id") Long id) {
-		return giqliParamValueService.updateGiqliParamValue(giqliParamValue, id);
+//	@PutMapping("/paramsGiqli")
+//	public GiqliParamValue updateGIQLIParamValue(@RequestBody GiqliParamValue giqliParamValue,
+//			@PathVariable("id") Long id) {
+//		return giqliParamValueService.updateGiqliParamValue(giqliParamValue, id);
+//
+//	}
 
-	}
 
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable Long id) {
+	public ResponseEntity<String> delete(@PathVariable Long id) {
 
 		giqliParamValueService.delete(id);
-
+ 
+	return new ResponseEntity<String>("deleted"+id,HttpStatus.OK);
 	}
 }
