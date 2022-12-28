@@ -78,7 +78,7 @@ public class DoctorController
 	}
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@DeleteMapping("/delete/{DocId}/{docName}")
-	public ResponseEntity<?> Delete(@PathVariable(name = "DocId") Long docId,@PathVariable(name = "docName")String docName) {
+	public ResponseEntity<?> Delete(@PathVariable(name = "DocId", required = true) Long docId,@PathVariable(name = "docName")String docName) {
 		
 		
 		if(docId!=null&& !docId.equals(0L)) {

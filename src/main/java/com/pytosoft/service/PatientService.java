@@ -15,13 +15,6 @@ public class PatientService {
 
 	@Autowired
 	PatientRepository patientrepo;
-	
-	public void assignPatientToDoctor(Patient patient) {
-		
-		patientrepo.save(patient);
-	}
-
-	
 
 	public Patient getPatientById(Long id, DetailMode detailMode, String accessCode) {
 		// TODO Auto-generated method stub
@@ -29,25 +22,32 @@ public class PatientService {
 	}
 
 	
-
-	public Patient updatepatient(Patient patient, Long id) {
-		
-
-		Patient patientdb = patientrepo.findById(id).get();
-		
-		
-		if(Objects.nonNull(patient.getFirstName()) && !"".equalsIgnoreCase(patient.getFirstName())) {
-			
-			patientdb.setFirstName(patient.getFirstName());
-		}
-
-
-		return patientrepo.save(patientdb);	
-	}
+//
+//	public Patient updatepatient(Patient patient, Long id) {
+//		
+//
+//		Patient patientdb = patientrepo.findById(id).get();
+//		
+//		
+//		if(Objects.nonNull(patient.getFirstName()) && !"".equalsIgnoreCase(patient.getFirstName())) {
+//			
+//			patientdb.setFirstName(patient.getFirstName());
+//		}
+//
+//
+//		return patientrepo.save(patientdb);	
+//	}
 
 	public void delete(Long id) {
 		
 		patientrepo.deleteById(id);
+	}
+
+
+
+	public Patient savePatient(Patient patient) {
+		// TODO Auto-generated method stub
+		return patientrepo.save(patient);
 	}
 
 	
