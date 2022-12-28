@@ -46,13 +46,13 @@ public class ComplainController {
 		}
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/comp/{id}")
 	public String delete(@PathVariable Integer id) {
 		complainService.deleteComplain(id);
 		return " complain sucessfully deleted" + id;
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/obcomp/{id}")
 	public String delete(@PathVariable Long id) {
 		complainService.deleteObservedComplain(id);
 		return " complain sucessfully deleted" + id;
