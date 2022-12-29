@@ -36,8 +36,14 @@ public class DoctorController {
 		return new ResponseEntity<ListResponse>(result, HttpStatus.OK);
 	}
 
-	@PutMapping("/updateDoctor/{doc}")
-	public ResponseEntity<Doctor> updateWithId(@PathVariable(name = "docId") Doctor doc) {
+	@GetMapping("/getbyid/{docId}")
+	public ResponseEntity<Doctor> get(@PathVariable("docId") Long id) {
+		Doctor result = doctorService.findById(id);
+		return new ResponseEntity<Doctor>(result, HttpStatus.OK);
+	}
+
+	@PutMapping("/updateDoctor")
+	public ResponseEntity<Doctor> updateWithId(@RequestBody Doctor doc) {
 		Doctor doctor = doctorService.findById(doc.getId());
 
 		return new ResponseEntity<Doctor>(doctorService.save(doctor), HttpStatus.ACCEPTED);
@@ -51,23 +57,23 @@ public class DoctorController {
 
 	}
 
-	@GetMapping(params = "detail=Thin")
-	@ResponseBody
-	public ResponseEntity<List<Doctor>> getAllWithBasicDetail(
-			@RequestParam(value = "city", required = false) String cityName) {
-
-		return new ResponseEntity<List<Doctor>>(HttpStatus.OK);
-	}
-
-	@GetMapping(params = "find=byName")
-	public ResponseEntity<List<Doctor>> searchByName(@RequestParam Doctor doctor) {/* String doctorName) */
-		List<Doctor> doctors = new ArrayList<Doctor>();
-		doctors.add(doctorService.getEntity(doctor));
-
-		return new ResponseEntity<List<Doctor>>(doctors, HttpStatus.OK);
-	}
-
-	@DeleteMapping("/deletedegreepassed/{id}/degreepassedId/{degreepassedId}")
+	/*
+	 * @GetMapping(params = "detail=Thin")
+	 * 
+	 * @ResponseBody public ResponseEntity<List<Doctor>> getAllWithBasicDetail(
+	 * 
+	 * @RequestParam(value = "city", required = false) String cityName) {
+	 * 
+	 * return new ResponseEntity<List<Doctor>>(HttpStatus.OK); }
+	 * 
+	 * @GetMapping(params = "find=byName") public ResponseEntity<List<Doctor>>
+	 * searchByName(@RequestParam Doctor doctor) { String doctorName) List<Doctor>
+	 * doctors = new ArrayList<Doctor>();
+	 * doctors.add(doctorService.getEntity(doctor));
+	 * 
+	 * return new ResponseEntity<List<Doctor>>(doctors, HttpStatus.OK); }
+	 */
+	@DeleteMapping("/deletedegreepassed/doctorid/{id}/degreepassedId/{degreepassedId}")
 	public ResponseEntity<Object> deleteDegreePassed(@PathVariable("id") Long doctorId,
 			@PathVariable("degreepassedId") Long degreepassedId) {
 //		Doctor doctor = getLoggedInDoctor(request);
@@ -75,7 +81,7 @@ public class DoctorController {
 		return new ResponseEntity<Object>(HttpStatus.OK);
 	}
 
-	@DeleteMapping(value = "/{id}/expertises/{expertiseId}")
+	@DeleteMapping("/{id}/expertises/{expertiseId}")
 	public ResponseEntity<Object> deleteExpertise(@PathVariable("id") Long doctorId,
 			@PathVariable("expertiseId") Long expertiseId) {
 //		Doctor doctor = getLoggedInDoctor(request);
@@ -84,7 +90,7 @@ public class DoctorController {
 	}
 
 	@GetMapping("/findByName/{name}")
-	public ResponseEntity<List<Doctor>> getByName(@PathVariable(name = "name") String name) {
+	public ResponseEntity<List<Doctor>> searchByName(@PathVariable(name = "name") String name) {
 		return new ResponseEntity<List<Doctor>>(doctorService.findByName(name), HttpStatus.OK);
 
 	}
@@ -114,8 +120,8 @@ public class DoctorController {
 
 	@GetMapping("/lockForDoctor/{doctorName}")
 	public ResponseEntity<String> avilableDoctor(@PathVariable(name = "doctorName") String doctorName) {
-		Boolean avilable = doctorService.exists(doctorName);
-		String ans = (avilable) ? "Doctor Is associated with us" : "Sorry doctor is associated with us ";
+		Boolean available = doctorService.exists(doctorName);
+		String ans = (available) ? "Doctor Is associated with us" : "Sorry doctor is associated with us ";
 		return new ResponseEntity<String>(ans, HttpStatus.IM_USED);
 	}
 

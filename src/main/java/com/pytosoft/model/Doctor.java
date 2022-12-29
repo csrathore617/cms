@@ -14,9 +14,9 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name ="Doctors")
+@Table(name = "Doctors")
 public class Doctor {
-	
+
 	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 6021680194805719243L;
 
@@ -35,23 +35,28 @@ public class Doctor {
 	public static final String DEGREES_PASSED = "degreesPassed";
 
 	public static final String FP_DOCTOR_EXP = "fp_doctor_exp";
-	
-	@Id@GeneratedValue(strategy = GenerationType.IDENTITY)
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
-	
+
 	private String doctorName;
 
-	@OneToMany( fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-	@JoinColumn(name ="Doctor_id",referencedColumnName ="id" )
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "Doctor_id", referencedColumnName = "id")
 	private Set<DoctorSpecialization> doctorSpecializations;
 
-	@OneToMany( fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-	@JoinColumn(name ="Doctor_id",referencedColumnName ="id" )
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "Doctor_id", referencedColumnName = "id")
 	private Set<DegreePassed> degreesPassed;
 
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "Doctor_Id", referencedColumnName = "id", nullable = false)
 	private Set<Expertise> expertises;
 
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "Doctor_Id", referencedColumnName = "id", nullable = false)
 	private Set<Experience> experiences;
 
 	private boolean acceptsNewPatient;
@@ -140,7 +145,5 @@ public class Doctor {
 	public void setAvailableForHomeVisit(boolean availableForHomeVisit) {
 		this.availableForHomeVisit = availableForHomeVisit;
 	}
-	
-	
-	
+
 }
