@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.pytosoft.model.Clinic;
 import com.pytosoft.model.Doctor;
+import com.pytosoft.model.scheduling.DoctorClinicAssignment;
+import com.pytosoft.vo.ListResponse;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
@@ -30,5 +33,21 @@ public class CustomDoctorRepoImpl implements CustomDoctorRepo {
 		
 		
 	}
-
+	public ListResponse findAllByClinic(Clinic clinic,Doctor doctor) {
+		CriteriaBuilder builder = manager.getCriteriaBuilder();
+		CriteriaQuery<DoctorClinicAssignment> query = builder.createQuery(DoctorClinicAssignment.class);
+		Root<DoctorClinicAssignment> rootEmp = query.from(DoctorClinicAssignment.class);
+		
+		Predicate clinicPredicate = builder.equal(rootEmp.get("clinic"), clinic);
+		Predicate doctorPredicate = builder.equal(rootEmp.get("doctor"), doctor);
+		
+		query.where(clinicPredicate,doctorPredicate);
+		TypedQuery<DoctorClinicAssignment> tQuery =  manager.createQuery(query);
+		
+		return new ListResponse(tQuery.getResultList().size(),tQuery.getResultList().size(), tQuery.getResultList());
+		
+		
+		
+	}
+	
 }

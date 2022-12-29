@@ -1,6 +1,5 @@
 package com.pytosoft.model;
 
-
 import javax.validation.constraints.Min;
 
 import jakarta.persistence.CascadeType;
@@ -14,11 +13,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-
 @Entity
 @Table(name = "complain")
-public class Complain 
-{
+public class Complain {
+
+	// private static final long serialVersionUID = 5040083610582590293L;
 
 	public static final String NAME = "name";
 
@@ -27,25 +26,22 @@ public class Complain
 	@Min(value = 1, message = "{complain.id.min}")
 	private Integer id;
 
-	
 	private String name;
-	
-	
+
 	private Doctor doctor;
 
-	public Complain()
-	{
+	public Complain() {
 
 	}
 
-	public Complain(Integer id)
-	{
+	public Complain(Integer id) {
+
 		super();
 		this.id = id;
 	}
 
-	public Complain(final Integer id, final String name)
-	{
+	public Complain(final Integer id, final String name) {
+
 		this.id = id;
 		this.name = name;
 	}
@@ -53,25 +49,15 @@ public class Complain
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "Id")
-	public Integer getId()
-	{
+	public Integer getId() {
+
 		return id;
 	}
 
 	@Column(name = "Name", nullable = false, length = 255)
-	public String getName()
-	{
+
+	public String getName() {
 		return name;
-	}
-
-	public void setId(Integer id)
-	{
-		this.id = id;
-	}
-
-	public void setName(String name)
-	{
-		this.name = name;
 	}
 
 	/**
@@ -89,7 +75,13 @@ public class Complain
 	public void setDoctor(Doctor doctor) {
 		this.doctor = doctor;
 	}
-	
-	
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 }

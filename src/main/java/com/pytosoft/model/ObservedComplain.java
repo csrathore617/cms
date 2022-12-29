@@ -1,7 +1,5 @@
 package com.pytosoft.model;
 
-
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,13 +11,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-
 @Entity
 @Table(name = "observed_complain")
-public class ObservedComplain  {
-	//private static final long serialVersionUID = 2760312952441468614L;
-
-	public static final String COMPLAIN = "complain";
+public class ObservedComplain {
+	// private static final long serialVersionUID = 2760312952441468614L;
 
 	public static final String ORDERING = "ordering";
 
@@ -31,7 +26,7 @@ public class ObservedComplain  {
 
 	private Integer ordering;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Complain_Id", referencedColumnName = "Id")
 	public Complain getComplain() {
 		return complain;
@@ -49,6 +44,7 @@ public class ObservedComplain  {
 	}
 
 	public void setId(Long id) {
+
 		this.id = id;
 	}
 
@@ -58,6 +54,7 @@ public class ObservedComplain  {
 	}
 
 	public void setNotes(String notes) {
+
 		this.notes = notes;
 	}
 

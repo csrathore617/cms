@@ -8,25 +8,23 @@ import org.springframework.stereotype.Service;
 import com.pytosoft.model.Complain;
 import com.pytosoft.model.Doctor;
 import com.pytosoft.repository.ComplainRepository;
-import com.pytosoft.repository.DoctorRepo;
+import com.pytosoft.repository.DoctorRepository;
 import com.pytosoft.repository.ObservedComplainRepository;
 
 @Service
 public class ComplainService {
-    @Autowired
+	@Autowired
 	private ComplainRepository complainRepository;
-    
-    @Autowired
-    private ObservedComplainRepository observedComplainRepository;
-    
-    @Autowired
-    private DoctorRepo repo;
-    
+
+	@Autowired
+	private ObservedComplainRepository observedComplainRepository;
+
+	@Autowired
+	private DoctorRepository repo;
+
 	public List<Complain> listAll() {
 		return complainRepository.findAll();
 	}
-	
-	
 
 	public void save(Complain complain) {
 		complainRepository.save(complain);
@@ -39,17 +37,15 @@ public class ComplainService {
 	public void deleteComplain(Integer id) {
 		complainRepository.deleteById(id);
 	}
-	
-	public void deleteObservedComplain(Long id)
-	{
+
+	public void deleteObservedComplain(Long id) {
 		// add a check with exception ????
-		
+
 		observedComplainRepository.deleteById(id);
 	}
 
-	public List<Complain> findAllByDoctor(Long id) 
-	{
-		Doctor doc= repo.findById(id).get();
-	    return complainRepository.findByDoctor(doc);
+	public List<Complain> findAllByDoctor(Long id) {
+		Doctor doc = repo.findById(id).get();
+		return complainRepository.findByDoctor(doc);
 	}
 }

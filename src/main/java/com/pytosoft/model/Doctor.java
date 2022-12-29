@@ -1,5 +1,4 @@
 package com.pytosoft.model;
-
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -14,33 +13,57 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name ="Doctors")
+@Table(name = "Doctors")
 public class Doctor {
-	
-	@Id@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "doc_id")
+
+	@SuppressWarnings("unused")
+	private static final long serialVersionUID = 6021680194805719243L;
+
+	public static final String ID = "id";
+
+	public static final String FP_DOCTOR_DOC_SPEC = "fp_doctor_doc_spec";
+
+	public static final String FP_DOCTOR_DEGREE_PASSED = "fp_doctor_degree_passed";
+
+	public static final String FP_DOCTOR_EXPERTISE = "fp_doctor_expertise";
+
+	public static final String FP_DOCTOR_INTERESTS = "fp_doctor_interests";
+
+	public static final String DOCTORSPECIALIZATION = "doctorSpecializations";
+
+	public static final String DEGREES_PASSED = "degreesPassed";
+
+	public static final String FP_DOCTOR_EXP = "fp_doctor_exp";
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Long id;
-	
+
 	private String doctorName;
 
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	@JoinColumn(name ="Doctor_id",referencedColumnName ="doc_Id" )
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "Doctor_id", referencedColumnName = "id")
 	private Set<DoctorSpecialization> doctorSpecializations;
 
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	@JoinColumn(name ="Doctor_id",referencedColumnName ="doc_Id" )
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "Doctor_id", referencedColumnName = "id")
 	private Set<DegreePassed> degreesPassed;
 
-//	private Set<Expertise> expertises;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "Doctor_Id", referencedColumnName = "id", nullable = false)
+	private Set<Expertise> expertises;
 
-//	private Set<Experience> experiences;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "Doctor_Id", referencedColumnName = "id", nullable = false)
+	private Set<Experience> experiences;
 
 	private boolean acceptsNewPatient;
 
-//	private boolean availableForHomeVisit;
+	private boolean availableForHomeVisit;
+
 	public Doctor() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Long getId() {
@@ -97,6 +120,29 @@ public class Doctor {
 		super();
 		this.doctorName = doctorName;
 	}
-	
-	
+
+	public Set<Expertise> getExpertises() {
+		return expertises;
+	}
+
+	public void setExpertises(Set<Expertise> expertises) {
+		this.expertises = expertises;
+	}
+
+	public Set<Experience> getExperiences() {
+		return experiences;
+	}
+
+	public void setExperiences(Set<Experience> experiences) {
+		this.experiences = experiences;
+	}
+
+	public boolean isAvailableForHomeVisit() {
+		return availableForHomeVisit;
+	}
+
+	public void setAvailableForHomeVisit(boolean availableForHomeVisit) {
+		this.availableForHomeVisit = availableForHomeVisit;
+	}
+
 }
