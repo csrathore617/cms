@@ -68,4 +68,19 @@ public class DoctorService {
 		return repo.count();
 	}
 
+	public void deleteDegreePassed(Long doctorId, Long degreepassedId) {
+		repo.deleteById(degreepassedId);
+		
+	}
+
+	public void deleteExpertise(Long doctorId, Long expertiseId) {
+		repo.deleteById(expertiseId);
+	}
+
+	public Doctor getDoctor(Long id) {
+		return repo.findById(id).get();
+	}
+
+	
+
 }
