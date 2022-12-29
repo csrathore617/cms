@@ -11,15 +11,17 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class DegreePassed {
 
-	@Id@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@OneToOne( fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Degree degree;
+
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -31,5 +33,4 @@ public class DegreePassed {
 	public void setDegree(Degree degree) {
 		this.degree = degree;
 	}
-}	
-	
+}

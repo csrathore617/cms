@@ -1,5 +1,4 @@
 package com.pytosoft.model;
-
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
