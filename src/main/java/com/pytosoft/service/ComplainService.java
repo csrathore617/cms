@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pytosoft.model.Complain;
+import com.pytosoft.model.Doctor;
 import com.pytosoft.repository.ComplainRepository;
+import com.pytosoft.repository.DoctorRepo;
 import com.pytosoft.repository.ObservedComplainRepository;
 
 @Service
@@ -17,9 +19,14 @@ public class ComplainService {
     @Autowired
     private ObservedComplainRepository observedComplainRepository;
     
+    @Autowired
+    private DoctorRepo repo;
+    
 	public List<Complain> listAll() {
 		return complainRepository.findAll();
 	}
+	
+	
 
 	public void save(Complain complain) {
 		complainRepository.save(complain);
@@ -38,5 +45,11 @@ public class ComplainService {
 		// add a check with exception ????
 		
 		observedComplainRepository.deleteById(id);
+	}
+
+	public List<Complain> findAllByDoctor(Long id) 
+	{
+		Doctor doc= repo.findById(id).get();
+	    return complainRepository.findByDoctor(doc);
 	}
 }

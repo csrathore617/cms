@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,11 @@ public class ComplainController {
 	public List<Complain> getAllComplain() {
 		return complainService.listAll();
 	}
+	@GetMapping("/{id}")
+	public ResponseEntity<List<Complain>> getAllComplainByDoctor(@PathVariable Long id)
+	{
+		 return new ResponseEntity<List<Complain>>(complainService.findAllByDoctor(id),HttpStatus.OK);
+	}
 
 	@PostMapping("/addComplain")
 	public ResponseEntity<String> add(@RequestBody Complain complain) {
@@ -34,7 +40,7 @@ public class ComplainController {
 		return new ResponseEntity<String>("new complain Added",HttpStatus.NOT_FOUND);
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/complainByDoc/{id}")
 	public ResponseEntity<Complain> getComplainById(@PathVariable Integer id) {
 		try {
 			Complain complain = complainService.getByID(id);

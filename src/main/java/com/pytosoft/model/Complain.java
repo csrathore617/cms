@@ -3,11 +3,15 @@ package com.pytosoft.model;
 
 import javax.validation.constraints.Min;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 
@@ -25,8 +29,9 @@ public class Complain
 
 	
 	private String name;
-
 	
+	
+	private Doctor doctor;
 
 	public Complain()
 	{
@@ -68,5 +73,23 @@ public class Complain
 	{
 		this.name = name;
 	}
+
+	/**
+	 * @return the doctor
+	 */
+	@ManyToOne(fetch = FetchType.LAZY, optional = true, cascade = CascadeType.ALL)
+	@JoinColumn(name = "doc_id", referencedColumnName = "doc_id")
+	public Doctor getDoctor() {
+		return doctor;
+	}
+
+	/**
+	 * @param doctor the doctor to set
+	 */
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
+	}
+	
+	
 
 }
