@@ -64,7 +64,7 @@ public class Complain {
 	 * @return the doctor
 	 */
 	@ManyToOne(fetch = FetchType.LAZY, optional = true, cascade = CascadeType.ALL)
-	@JoinColumn(name = "doc_id", referencedColumnName = "doc_id")
+	@JoinColumn(name = "doc_id", referencedColumnName = "id")
 	public Doctor getDoctor() {
 		return doctor;
 	}
