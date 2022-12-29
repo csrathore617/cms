@@ -33,7 +33,7 @@ public class DoctorClinicAssignmentService {
 		
 	}
 	
-	public List<DoctorClinicAssignment> findByDoctor(Long docId)
+	public List<DoctorClinicAssignment> findAllByDoctor(Long docId)
 	{
 		Doctor doctor = doctorRepository.findById(docId).get();
 		return doctorClinicAssignmentRepository.findByDoctor(doctor);
@@ -58,15 +58,20 @@ public class DoctorClinicAssignmentService {
 		
 	}
 	
-	public void save(DoctorClinicAssignment doctorClinicAssignment,Long docId,Integer clinicId)
+	public void save(List<DoctorClinicAssignment> listOfDoctorClinicAssignment,Long docId,Integer clinicId)
 	{
-	   Doctor doctor = doctorRepository.findById(docId).get();
-	   Clinic clinic = clinicRepository.findById(clinicId).get();
+		 Doctor doctor = doctorRepository.findById(docId).get();
+		   Clinic clinic = clinicRepository.findById(clinicId).get();
+		   
+	  for (DoctorClinicAssignment doctorClinicAssignment : listOfDoctorClinicAssignment) {
 		
-		doctorClinicAssignment.setDoctor(doctor);
-		doctorClinicAssignment.setClinic(clinic);
-		
-		 doctorClinicAssignmentRepository.save(doctorClinicAssignment);
+		 
+			
+			doctorClinicAssignment.setDoctor(doctor);
+			doctorClinicAssignment.setClinic(clinic);
+			
+			 doctorClinicAssignmentRepository.save(doctorClinicAssignment);
+	}
 		
 	}
 	
