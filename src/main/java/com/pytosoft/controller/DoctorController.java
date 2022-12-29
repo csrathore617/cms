@@ -19,98 +19,114 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pytosoft.model.Doctor;
 import com.pytosoft.service.DoctorService;
+import com.pytosoft.vo.ListResponse;
 
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/doctors")
-public class DoctorController 
-{
+public class DoctorController {
 	@Autowired
 	private DoctorService doctorService;
-	
-	
+
 	@GetMapping("/allDoctors")
 	@ResponseBody
-	public ResponseEntity<List<Doctor>> getAll(HttpServletRequest request)
-	{
-		return new ResponseEntity<List<Doctor>>( doctorService.findAll(),HttpStatus.OK);
+	public ResponseEntity<ListResponse> getAll(HttpServletRequest request) {
+		ListResponse result = doctorService.findAll();
+		return new ResponseEntity<ListResponse>(result, HttpStatus.OK);
 	}
-	
-	@PutMapping("/updateDoctor/{doc}")
-	public ResponseEntity<Doctor> updateWithId(@PathVariable(name = "docId") Doctor doc){
-		Doctor doctor =	doctorService.findById(doc.getId());
-			
-	return new ResponseEntity<Doctor>(doctorService.save(doctor),HttpStatus.ACCEPTED);
-			
-	} 
-	
-	
+
+	@GetMapping("/getbyid/{docId}")
+	public ResponseEntity<Doctor> get(@PathVariable("docId") Long id) {
+		Doctor result = doctorService.findById(id);
+		return new ResponseEntity<Doctor>(result, HttpStatus.OK);
+	}
+
+	@PutMapping("/updateDoctor")
+	public ResponseEntity<Doctor> updateWithId(@RequestBody Doctor doc) {
+		Doctor doctor = doctorService.findById(doc.getId());
+
+		return new ResponseEntity<Doctor>(doctorService.save(doctor), HttpStatus.ACCEPTED);
+
+	}
+
 	@PostMapping("/saveDoc")
 	public String saveDoc(@RequestBody Doctor doctor) {
 		doctorService.save(doctor);
-		return "saved"+ doctor.getDoctorName();
-		
+		return "saved" + doctor.getDoctorName();
+
 	}
 
-	@GetMapping(params = "detail=Thin")
-	@ResponseBody
-	public ResponseEntity<List<Doctor>> getAllWithBasicDetail(
-			@RequestParam(value = "city", required = false) String cityName)
-	{
-		
-		return new ResponseEntity<List<Doctor>>( HttpStatus.OK);
-	}
-	
-	@GetMapping(params = "find=byName")
-	public ResponseEntity<List<Doctor>> searchByName(@RequestParam Doctor doctor) {/*String doctorName)*/
-		List<Doctor> doctors = new ArrayList<Doctor>();
-				doctors.add(doctorService.getEntity(doctor));
-		
-        return new ResponseEntity<List<Doctor>>(doctors, HttpStatus.OK);
+	/*
+	 * @GetMapping(params = "detail=Thin")
+	 * 
+	 * @ResponseBody public ResponseEntity<List<Doctor>> getAllWithBasicDetail(
+	 * 
+	 * @RequestParam(value = "city", required = false) String cityName) {
+	 * 
+	 * return new ResponseEntity<List<Doctor>>(HttpStatus.OK); }
+	 * 
+	 * @GetMapping(params = "find=byName") public ResponseEntity<List<Doctor>>
+	 * searchByName(@RequestParam Doctor doctor) { String doctorName) List<Doctor>
+	 * doctors = new ArrayList<Doctor>();
+	 * doctors.add(doctorService.getEntity(doctor));
+	 * 
+	 * return new ResponseEntity<List<Doctor>>(doctors, HttpStatus.OK); }
+	 */
+	@DeleteMapping("/deletedegreepassed/doctorid/{id}/degreepassedId/{degreepassedId}")
+	public ResponseEntity<Object> deleteDegreePassed(@PathVariable("id") Long doctorId,
+			@PathVariable("degreepassedId") Long degreepassedId) {
+//		Doctor doctor = getLoggedInDoctor(request);
+		doctorService.deleteDegreePassed(degreepassedId, doctorId);
+		return new ResponseEntity<Object>(HttpStatus.OK);
 	}
 
-	
+	@DeleteMapping("/{id}/expertises/{expertiseId}")
+	public ResponseEntity<Object> deleteExpertise(@PathVariable("id") Long doctorId,
+			@PathVariable("expertiseId") Long expertiseId) {
+//		Doctor doctor = getLoggedInDoctor(request);
+		doctorService.deleteExpertise(expertiseId, doctorId);
+		return new ResponseEntity<Object>(HttpStatus.OK);
+	}
+
 	@GetMapping("/findByName/{name}")
-	public ResponseEntity<List<Doctor>> getByName(@PathVariable(name = "name") String name){
-		return new ResponseEntity<List<Doctor>>(doctorService.findByName(name),HttpStatus.OK);
-		
+	public ResponseEntity<List<Doctor>> searchByName(@PathVariable(name = "name") String name) {
+		return new ResponseEntity<List<Doctor>>(doctorService.findByName(name), HttpStatus.OK);
+
 	}
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@DeleteMapping("/delete/{DocId}/{docName}")
-	public ResponseEntity<?> Delete(@PathVariable(name = "DocId", required = true) Long docId,@PathVariable(name = "docName")String docName) {
-		
-		
-		if(docId!=null&& !docId.equals(0L)) {
-			doctorService.deleteById(docId);
-			System.out.println("deleted by id");
-		}
-		else if(docName!=null&&!docName.isEmpty()) {
-			Doctor doc =doctorService.findByName(docName).get(0);
-				doctorService.deleteById(doc.getId());
-				System.out.println("deleted by id");
-		}
-		return new ResponseEntity("Deleted",HttpStatus.OK);
-		
+
+	@DeleteMapping("/delete/id/{DocId}")
+	public ResponseEntity<String> deleteDoctorById(@PathVariable(name = "DocId", required = true) Long docId) {
+
+		doctorService.delete(docId, null);
+
+		return new ResponseEntity<String>("Deleted", HttpStatus.OK);
+
 	}
-	
+
+	@DeleteMapping("/delete/name/{docName}")
+	public ResponseEntity<String> deleteDoctorByName(@PathVariable(name = "docName") String docName) {
+
+		doctorService.delete(null, docName);
+
+		return new ResponseEntity<String>("Deleted", HttpStatus.OK);
+
+	}
+
 	@GetMapping("/getCountByName/{doctorName}")
-	public ResponseEntity<Long> getCount(@PathVariable(name = "doctorName")String doctorName) {
-		return new ResponseEntity<Long>(doctorService.getCoundByName(doctorName),HttpStatus.OK);
+	public ResponseEntity<Long> getCount(@PathVariable(name = "doctorName") String doctorName) {
+		return new ResponseEntity<Long>(doctorService.getCoundByName(doctorName), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/lockForDoctor/{doctorName}")
-	public ResponseEntity<String> avilableDoctor(@PathVariable(name = "doctorName")String doctorName){
-		Boolean avilable = doctorService.exists(doctorName);
-		String ans = (avilable) ? "Doctor Is associated with us":"Sorry doctor is associated with us " ;
-		return new ResponseEntity<String>(ans, HttpStatus.IM_USED );
+	public ResponseEntity<String> avilableDoctor(@PathVariable(name = "doctorName") String doctorName) {
+		Boolean available = doctorService.exists(doctorName);
+		String ans = (available) ? "Doctor Is associated with us" : "Sorry doctor is associated with us ";
+		return new ResponseEntity<String>(ans, HttpStatus.IM_USED);
 	}
+
 	@GetMapping("/count")
-	public ResponseEntity<Long> getCompleteCount(){
-		return new ResponseEntity<Long>(doctorService.getCount(),HttpStatus.ACCEPTED);
+	public ResponseEntity<Long> getCompleteCount() {
+		return new ResponseEntity<Long>(doctorService.getCount(), HttpStatus.ACCEPTED);
 	}
 }
-
-
-
-

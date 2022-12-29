@@ -10,7 +10,7 @@ import com.pytosoft.model.Doctor;
 import com.pytosoft.model.scheduling.DoctorClinicAssignment;
 import com.pytosoft.repository.ClinicRepository;
 import com.pytosoft.repository.DoctorClinicAssignmentRepository;
-import com.pytosoft.repository.DoctorRepo;
+import com.pytosoft.repository.DoctorRepository;
 
 @Service
 public class DoctorClinicAssignmentService {
@@ -19,7 +19,7 @@ public class DoctorClinicAssignmentService {
 	private DoctorClinicAssignmentRepository doctorClinicAssignmentRepository;
 	
 	@Autowired
-	private DoctorRepo doctorRepository;
+	private DoctorRepository doctorRepository;
 	
 	@Autowired
 	private ClinicRepository clinicRepository;

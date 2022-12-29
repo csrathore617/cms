@@ -36,7 +36,7 @@ import jakarta.persistence.Table;
 //@BatchSize(size = 10)
 public class Clinic 
 {
-	@SuppressWarnings("unused")
+//	@SuppressWarnings("unused")
 	//private static final long serialVersionUID = -352911380775268279L;
 
 	public static final String FP_CLINIC_SPEC = "fp_clinic_spec";

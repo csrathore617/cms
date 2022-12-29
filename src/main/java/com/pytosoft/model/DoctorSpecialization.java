@@ -17,12 +17,11 @@ public class DoctorSpecialization {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//	private Doctor doctor;
+
 
 	// @NotNull(message = "{doctorSpecialization.specialization.notNull}")
 //	@Valid
-//	private String specialization;
+
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Specialization specialization;
 
@@ -34,13 +33,6 @@ public class DoctorSpecialization {
 		this.id = id;
 	}
 
-//	public Doctor getDoctor() {
-//		return doctor;
-//	}
-//
-//	public void setDoctor(Doctor doctor) {
-//		this.doctor = doctor;
-//	}
 
 	public Specialization getSpecialization() {
 		return specialization;
