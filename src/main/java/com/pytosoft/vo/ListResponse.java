@@ -1,7 +1,7 @@
 package com.pytosoft.vo;
 
 import java.util.List;
-import flexjson.JSON;
+//import flexjson.JSON;
 
 public class ListResponse
 {
@@ -62,7 +62,7 @@ public class ListResponse
 		this.sEcho = sEcho;
 	}
 
-	@JSON(include = true)
+//	@JSON(include = true)
 	public List<?> getAaData()
 	{
 		return aaData;
