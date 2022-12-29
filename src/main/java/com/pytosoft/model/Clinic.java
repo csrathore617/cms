@@ -126,14 +126,14 @@ public class Clinic
 	//@Pattern(regexp = "[0-9]+", message = "{clinic.fax2.regex}")
 	private String fax2;
 
-//	@Valid
-//	private Set<ClinicSpecialization> clinicSpecializations;
-//
-//	@Valid
-//	private Set<AvailableFacility> availableFacilities;
-//
-//	@Valid
-//	private Set<OperatingDaysHours> operatingDaysHours;
+	
+	private Set<ClinicSpecialization> clinicSpecializations;
+
+	@Valid
+	private Set<AvailableFacility> availableFacilities;
+
+	@Valid
+	private Set<OperatingDaysHours> operatingDaysHours;
 //
 //	private Tenant tenant;
 //
@@ -163,7 +163,7 @@ public class Clinic
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id")
 	public Integer getId()
 	{
@@ -343,28 +343,29 @@ public class Clinic
 		this.fax2 = fax2;
 	}
 
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "clinic", cascade = CascadeType.ALL)
-//	public Set<ClinicSpecialization> getClinicSpecializations()
-//	{
-//		return clinicSpecializations;
-//	}
-//
-//	public void setClinicSpecializations(Set<ClinicSpecialization> clinicSpecializations)
-//	{
-//		this.clinicSpecializations = clinicSpecializations;
-//	}
-//
-//	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id", nullable = false)
-//	public Set<AvailableFacility> getAvailableFacilities()
-//	{
-//		return availableFacilities;
-//	}
-//
-//	public void setAvailableFacilities(Set<AvailableFacility> availableFacilities)
-//	{
-//		this.availableFacilities = availableFacilities;
-//	}
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id")
+	public Set<ClinicSpecialization> getClinicSpecializations()
+	{
+		return clinicSpecializations;
+	}
+
+	public void setClinicSpecializations(Set<ClinicSpecialization> clinicSpecializations)
+	{
+		this.clinicSpecializations = clinicSpecializations;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id"/* , nullable = false */)
+	public Set<AvailableFacility> getAvailableFacilities()
+	{
+		return availableFacilities;
+	}
+
+	public void setAvailableFacilities(Set<AvailableFacility> availableFacilities)
+	{
+		this.availableFacilities = availableFacilities;
+	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id", nullable = false)
@@ -378,17 +379,17 @@ public class Clinic
 		this.acceptedPaymentModes = acceptedPaymentModes;
 	}
 
-//	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id", nullable = false)
-//	public Set<OperatingDaysHours> getOperatingDaysHours()
-//	{
-//		return operatingDaysHours;
-//	}
-//
-//	public void setOperatingDaysHours(Set<OperatingDaysHours> operatingDaysHours)
-//	{
-//		this.operatingDaysHours = operatingDaysHours;
-//	}
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id", nullable = false)
+	public Set<OperatingDaysHours> getOperatingDaysHours()
+	{
+		return operatingDaysHours;
+	}
+
+	public void setOperatingDaysHours(Set<OperatingDaysHours> operatingDaysHours)
+	{
+		this.operatingDaysHours = operatingDaysHours;
+	}
 
 	@Column(name = "hospital", nullable = true)
 	public boolean isHospital()
