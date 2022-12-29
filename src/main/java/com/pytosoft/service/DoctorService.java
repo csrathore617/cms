@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pytosoft.model.Clinic;
-import com.pytosoft.model.DegreePassed;
 import com.pytosoft.model.Doctor;
 import com.pytosoft.repository.ClinicRepository;
 import com.pytosoft.repository.DoctorRepository;
@@ -109,7 +108,7 @@ public class DoctorService {
 		return repo.findAllByClinic(clinc, doc);
 		
 	}
-	public void deleteDegreePassed(Long id,Long doctor_id) {
+	public void deleteDegreePassed1(Long id,Long doctor_id) {
 //		DegreePassed dPassed = repo.findByDegreePassedId(id);
 		if (id ==null) {
 			Doctor doctor =repo.findById(doctor_id).get();
@@ -118,7 +117,7 @@ public class DoctorService {
 		repo.deleteDegreePassedById(id);
 	}
 
-	public void deleteExpertise(Long id,Long doctor_id) {
+	public void deleteExpertise1(Long id,Long doctor_id) {
 
 		if (id ==null) {
 			Doctor doctor =repo.findById(doctor_id).get();
@@ -130,6 +129,21 @@ public class DoctorService {
 
 	
 	
+	
+
+	public void deleteDegreePassed(Long doctorId, Long degreepassedId) {
+		repo.deleteById(degreepassedId);
+		
+	}
+
+	public void deleteExpertise(Long doctorId, Long expertiseId) {
+		repo.deleteById(expertiseId);
+	}
+
+	public Doctor getDoctor(Long id) {
+		return repo.findById(id).get();
+	}
+
 	
 
 }
