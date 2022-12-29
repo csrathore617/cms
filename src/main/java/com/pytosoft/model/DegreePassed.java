@@ -2,6 +2,7 @@ package com.pytosoft.model;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,7 +14,7 @@ public class DegreePassed {
 	@Id@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne( fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private Degree degree;
 	public Long getId() {
 		return id;

@@ -1,5 +1,7 @@
 package com.pytosoft.model;
 
+import com.pytosoft.constants.DegreeType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,9 +22,20 @@ public class Degree {
 	// for ui only
 	@Column(name = "other_degree_name")
 	private String otherDegreeName;
+	
+	private DegreeType degreeType;
+
 
 	public Short getId() {
 		return id;
+	}
+
+	public DegreeType getDegreeType() {
+		return degreeType;
+	}
+
+	public void setDegreeType(DegreeType degreeType) {
+		this.degreeType = degreeType;
 	}
 
 	public void setId(Short id) {
