@@ -34,13 +34,13 @@ public class DoctorSpecialization {
 		this.id = id;
 	}
 
-	public Doctor getDoctor() {
-		return doctor;
-	}
-
-	public void setDoctor(Doctor doctor) {
-		this.doctor = doctor;
-	}
+//	public Doctor getDoctor() {
+//		return doctor;
+//	}
+//
+//	public void setDoctor(Doctor doctor) {
+//		this.doctor = doctor;
+//	}
 
 	public Specialization getSpecialization() {
 		return specialization;

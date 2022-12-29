@@ -1,3 +1,4 @@
+
 package com.pytosoft.model;
 
 import javax.validation.constraints.Min;
