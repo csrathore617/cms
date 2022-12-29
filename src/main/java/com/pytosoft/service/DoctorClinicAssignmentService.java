@@ -5,8 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pytosoft.model.Clinic;
+import com.pytosoft.model.Doctor;
 import com.pytosoft.model.scheduling.DoctorClinicAssignment;
+import com.pytosoft.repository.ClinicRepository;
 import com.pytosoft.repository.DoctorClinicAssignmentRepository;
+import com.pytosoft.repository.DoctorRepo;
 
 @Service
 public class DoctorClinicAssignmentService {
@@ -14,19 +18,31 @@ public class DoctorClinicAssignmentService {
 	@Autowired
 	private DoctorClinicAssignmentRepository doctorClinicAssignmentRepository;
 	
-	public List<DoctorClinicAssignment> findByDoctorAndClinic(DoctorClinicAssignment doctorClinicAssignment)
+	@Autowired
+	private DoctorRepo doctorRepository;
+	
+	@Autowired
+	private ClinicRepository clinicRepository;
+	
+	public List<DoctorClinicAssignment> findByDoctorAndClinic(Long docId,Integer clinicId)
 	{
-		return doctorClinicAssignmentRepository.findByDoctorAndClinic(doctorClinicAssignment.getDoctor(), doctorClinicAssignment.getClinic());
+		Doctor doctor = doctorRepository.findById(docId).get();
+        Clinic clinic = clinicRepository.findById(clinicId).get();
+        
+		return doctorClinicAssignmentRepository.findByDoctorAndClinic(doctor, clinic);
 		
 	}
-	public List<DoctorClinicAssignment> findByDoctor(DoctorClinicAssignment doctorClinicAssignment)
+	
+	public List<DoctorClinicAssignment> findAllByDoctor(Long docId)
 	{
-		return doctorClinicAssignmentRepository.findByDoctor(doctorClinicAssignment.getDoctor());
+		Doctor doctor = doctorRepository.findById(docId).get();
+		return doctorClinicAssignmentRepository.findByDoctor(doctor);
 		
 	}
-	public List<DoctorClinicAssignment> findByClinic(DoctorClinicAssignment doctorClinicAssignment)
+	public List<DoctorClinicAssignment> findByClinic(Integer clinicId)
 	{
-		return doctorClinicAssignmentRepository.findByClinic( doctorClinicAssignment.getClinic());
+		Clinic clinic = clinicRepository.findById(clinicId).get();
+		return doctorClinicAssignmentRepository.findByClinic(clinic);
 		
 	}
 	
@@ -42,16 +58,29 @@ public class DoctorClinicAssignmentService {
 		
 	}
 	
-	public void save(DoctorClinicAssignment doctorClinicAssignment)
+	public void save(List<DoctorClinicAssignment> listOfDoctorClinicAssignment,Long docId,Integer clinicId)
 	{
-		doctorClinicAssignment.setDoctor(null);
-		 doctorClinicAssignmentRepository.save(doctorClinicAssignment);
+		 Doctor doctor = doctorRepository.findById(docId).get();
+		   Clinic clinic = clinicRepository.findById(clinicId).get();
+		   
+	  for (DoctorClinicAssignment doctorClinicAssignment : listOfDoctorClinicAssignment) {
+		
+		 
+			
+			doctorClinicAssignment.setDoctor(doctor);
+			doctorClinicAssignment.setClinic(clinic);
+			
+			 doctorClinicAssignmentRepository.save(doctorClinicAssignment);
+	}
 		
 	}
 	
 	public void deleteById(Long id)
 	{
-		 doctorClinicAssignmentRepository.deleteById(id);
+		DoctorClinicAssignment doctorClinicAssignment = doctorClinicAssignmentRepository.findById(id).get();
+		doctorClinicAssignment.setActive(false);
+		
+		doctorClinicAssignmentRepository.save(doctorClinicAssignment);
 		
 	}
 	
