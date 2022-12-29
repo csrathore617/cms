@@ -29,9 +29,9 @@ public class ComplainController {
 	}
 
 	@PostMapping("/addComplain")
-	public String add(@RequestBody Complain complain) {
+	public ResponseEntity<String> add(@RequestBody Complain complain) {
 		complainService.save(complain);
-		return "new complain Added";
+		return new ResponseEntity<String>("new complain Added",HttpStatus.NOT_FOUND);
 	}
 
 	@GetMapping("/{id}")
@@ -47,14 +47,14 @@ public class ComplainController {
 	}
 
 	@DeleteMapping("/comp/{id}")
-	public String delete(@PathVariable Integer id) {
+	public ResponseEntity<String> delete(@PathVariable Integer id) {
 		complainService.deleteComplain(id);
-		return " complain sucessfully deleted" + id;
+		return new ResponseEntity<String>("complain deleted",HttpStatus.NOT_FOUND);
 	}
 
 	@DeleteMapping("/obcomp/{id}")
-	public String delete(@PathVariable Long id) {
+	public ResponseEntity<String> delete(@PathVariable Long id) {
 		complainService.deleteObservedComplain(id);
-		return " complain sucessfully deleted" + id;
+		return new ResponseEntity<String>("observed complain deleted",HttpStatus.NOT_FOUND);
 	}
 }
