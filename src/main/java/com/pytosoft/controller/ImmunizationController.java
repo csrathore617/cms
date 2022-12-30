@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pytosoft.model.Immunization;
 import com.pytosoft.service.ImmunizationService;
+import com.pytosoft.vo.ListResponse;
 
 @RestController
 @RequestMapping("/immunizationApi")
@@ -87,5 +88,13 @@ public class ImmunizationController {
 		map.put("data", immunizationService.findById(id));
 		return new ResponseEntity<>(map, HttpStatus.OK);
 
+	}
+	
+	@GetMapping("getAll/{name}")
+	
+	public ResponseEntity<ListResponse> getAll(@PathVariable("name")String name)
+	{
+		ListResponse listResponse = immunizationService.findByName(name);
+		return new ResponseEntity<ListResponse>(listResponse, HttpStatus.OK);
 	}
 }

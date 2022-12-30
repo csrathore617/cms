@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.pytosoft.model.Immunization;
 import com.pytosoft.repository.ImmunizationRepository;
+import com.pytosoft.vo.ListResponse;
 
 import jakarta.transaction.Transactional;
 
@@ -39,6 +40,12 @@ public class ImmunizationServiceImpl implements ImmunizationService {
 	public void delete(Immunization immunization) {
 		immunizationRepository.delete(immunization);
 
+	}
+
+	@Override
+	public ListResponse findByName(String name) {
+		List<Immunization> result = immunizationRepository.findByName(name);
+		return new ListResponse(result.size(),result.size(),result);
 	}
 
 }

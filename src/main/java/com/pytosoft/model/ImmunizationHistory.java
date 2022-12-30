@@ -11,6 +11,7 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.FetchProfile;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.pytosoft.util.JsonDateDeserializer;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
