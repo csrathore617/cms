@@ -18,6 +18,7 @@ public class FollowUpService {
 	@Autowired
 	DoctorRepo repo;
 
+
 	
     public List<FollowUp> listAll() {
         return followUpRepository.findAll();
