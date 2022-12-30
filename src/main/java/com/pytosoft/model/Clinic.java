@@ -134,9 +134,11 @@ public class Clinic
 
 	@Valid
 	private Set<OperatingDaysHours> operatingDaysHours;
-//
-//	private Tenant tenant;
-//
+
+	private Doctor doctor;
+	
+	private Patient patient;
+
 //	private ClinicGeoLocation clinicGeoLocation;
 //
 //	// only for ui purpose
@@ -402,19 +404,29 @@ public class Clinic
 		this.hospital = hospital;
 	}
 
-//	@ManyToOne(fetch = FetchType.LAZY, optional = true)
-//	@JoinColumn(name = "Tenant_Id", referencedColumnName = "Id")
-//	@JSON(include = false)
-//	@JsonIgnore
-//	public Tenant getTenant()
-//	{
-//		return tenant;
-//	}
-//
-//	public void setTenant(Tenant tenant)
-//	{
-//		this.tenant = tenant;
-//	}
+	@ManyToOne(fetch = FetchType.LAZY, optional = true,cascade = CascadeType.ALL)
+	@JoinColumn(name = "Doctor_Id", referencedColumnName = "Id")
+	public Doctor getDoctor()
+	{
+		return doctor;
+	}
+
+	public void setDoctor(Doctor doctor)
+	{
+		this.doctor = doctor;
+	}
+	
+	@ManyToOne(fetch = FetchType.LAZY, optional = true,cascade = CascadeType.ALL)
+	@JoinColumn(name = "Patient_Id", referencedColumnName = "Id")
+	public Patient getPatient()
+	{
+		return patient;
+	}
+
+	public void setPatient(Patient patient)
+	{
+		this.patient = patient;
+	}
 
 //	@OneToOne(fetch = FetchType.LAZY, mappedBy = "clinic")
 //	@JsonIgnore
