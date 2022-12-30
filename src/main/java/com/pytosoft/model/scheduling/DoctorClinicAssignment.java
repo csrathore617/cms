@@ -89,7 +89,7 @@ public class DoctorClinicAssignment {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY, /* optional = false, */ cascade = CascadeType.ALL)
-	@JoinColumn(name = "Doctor_Id", referencedColumnName = "doc_id")
+	@JoinColumn(name = "Doctor_Id", referencedColumnName = "id")//doc_
 	public Doctor getDoctor() {
 		return doctor;
 	}

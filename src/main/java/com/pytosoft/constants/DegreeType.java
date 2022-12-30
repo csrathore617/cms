@@ -1,0 +1,7 @@
+package com.pytosoft.constants;
+
+public enum DegreeType
+{
+	BACHELORSDEGREE, PGDIPLOMA, PGMEDICINEDEGREE, PGSURGICALDEGREE, SUPERSPECIALTYDEGREE, OTHER
+
+}

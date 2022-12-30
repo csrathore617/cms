@@ -52,7 +52,7 @@ public class GiqliParamValueController {
 //	}
 
 
-	@DeleteMapping("/{doc_id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<String> delete(@PathVariable Long id) {
 
 		giqliParamValueService.delete(id);
