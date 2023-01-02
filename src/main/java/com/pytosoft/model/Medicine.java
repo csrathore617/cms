@@ -1,16 +1,30 @@
 package com.pytosoft.model;
 
-import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-import jakarta.persistence.*;
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.beans.factory.annotation.Value;
+
+import com.pytosoft.constraint.CreateEntity;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "medicine")
-//@FetchProfile(name = "fp_medicine_drug", fetchOverrides = { @FetchProfile.FetchOverride(entity = Medicine.class, association = "drug", mode = FetchMode.JOIN) })
-public class Medicine /* implements SingleTenantOwned */ {
-	// private static final long serialVersionUID = 1504890907141434278L;
+public class Medicine {
 
 	public static final String FP_MEDICINE_DRUG = "fp_medicine_drug";
 
@@ -20,52 +34,46 @@ public class Medicine /* implements SingleTenantOwned */ {
 
 	public static final String FAVORITE_MEDICINE = "favoriteMedicine";
 
-	/*
-	 * @NotNull(message = "{medicine.id.notNull}")
-	 * 
-	 * @Min(value = 1, message = "{medicine.id.min}")
-	 */
+	@NotNull(message = "{medicine.id.notNull}")
+
+	@Min(value = 1, message = "{medicine.id.min}")
+
 	private Long id;
 
-	/*
-	 * @NotNull(groups = { CreateEntity.class }, message =
-	 * "{medicine.drug.notNull}")
-	 * 
-	 * @Valid()
-	 */
+	@NotNull(groups = { CreateEntity.class }, message = "{medicine.drug.notNull}")
+
+	@Valid()
+
 	private Drug drug;
 
-	/*
-	 * @Min(groups = { CreateEntity.class }, value = 1, message =
-	 * "{medicine.duration.min}")
-	 * 
-	 * @Max(groups = { CreateEntity.class }, value = 365, message =
-	 * "{medicine.duration.max}")
-	 */
+	@Min(groups = { CreateEntity.class }, value = 1, message = "{medicine.duration.min}")
+
+	@Max(groups = { CreateEntity.class }, value = 365, message = "{medicine.duration.max}")
+
 	private short duration;
 
-	/*
-	 * @NotBlank(groups = { CreateEntity.class }, message =
-	 * "{medicine.instruction.notBlank}")
-	 * 
-	 * @Size(max = 255, min = 10, message = "{medicine.instruction.size}")
-	 */
+	@NotBlank(groups = { CreateEntity.class }, message = "{medicine.instruction.notBlank}")
+
+	@Size(max = 255, min = 10, message = "{medicine.instruction.size}")
+
 	private String instruction;
-	/*
-	 * @NotBlank(groups = { CreateEntity.class }, message =
-	 * "{medicine.frequency.notBlank}")
-	 * 
-	 * @Size(max = 50, message = "{medicine.frequency.size}")
-	 */
+
+	@NotBlank(groups = { CreateEntity.class }, message = "{medicine.frequency.notBlank}")
+
+	@Size(max = 50, message = "{medicine.frequency.size}")
+
 	private String frequency;
 
 	private String strength;
 
 	private String durationType;
+	
+	@Value("true")
+	private boolean isActive;
 
 //	private FavoriteMedicine favoriteMedicine;
 
-//	private Tenant tenant;
+	private Doctor doctor;
 
 	public Medicine() {
 
@@ -92,8 +100,11 @@ public class Medicine /* implements SingleTenantOwned */ {
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Drug_Id", referencedColumnName = "Id", nullable = true)
-	@Fetch(FetchMode.SELECT)
-	@BatchSize(size = 10)
+	/*
+	 * @Fetch(FetchMode.SELECT)
+	 * 
+	 * @BatchSize(size = 10)
+	 */
 	// @NotFound(action = NotFoundAction.IGNORE)
 	public Drug getDrug() {
 		return drug;
@@ -152,6 +163,38 @@ public class Medicine /* implements SingleTenantOwned */ {
 		this.durationType = durationType;
 	}
 
+	/**
+	 * @return the doctor
+	 */
+	@ManyToOne(fetch = FetchType.LAZY, optional = true, cascade = CascadeType.ALL)
+	@JoinColumn(name = "doc_id", referencedColumnName = "id")
+	public Doctor getDoctor() {
+		return doctor;
+	}
+
+	/**
+	 * @param doctor the doctor to set
+	 */
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
+	}
+
+	/**
+	 * @return the isActive
+	 */
+	public boolean getIsActive() {
+		return isActive;
+	}
+
+	/**
+	 * @param isActive the isActive to set
+	 */
+	public void setIsActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+	
+	
+
 	/*
 	 * @ManyToOne(optional = false)
 	 * 
@@ -163,14 +206,4 @@ public class Medicine /* implements SingleTenantOwned */ {
 	 * this.favoriteMedicine = favoriteMedicine; }
 	 */
 
-	/*
-	 * @ManyToOne(fetch = FetchType.LAZY, optional = true)
-	 * 
-	 * @JoinColumn(name = "Tenant_Id", referencedColumnName = "Id") // @JSON(include
-	 * = false)
-	 * 
-	 * @JsonIgnore public Tenant getTenant() { return tenant; }
-	 * 
-	 * public void setTenant(Tenant tenant) { this.tenant = tenant; }
-	 */
 }
