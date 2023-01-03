@@ -29,9 +29,9 @@ public class MedicineController {
 	}
 
 	@PostMapping("/addMedicine")
-	public String add(@RequestBody Medicine medicine) {
+	public ResponseEntity<String> add(@RequestBody Medicine medicine) {
 		medicineService.save(medicine);
-		return "new medicine Added";
+		return new ResponseEntity<String>("new medicine Added",HttpStatus.NOT_FOUND);
 	}
 
 	@GetMapping("/{id}")
@@ -46,10 +46,10 @@ public class MedicineController {
 		}
 	}
 
-	@DeleteMapping("/{id}")
-	public String delete(@PathVariable Long id) {
+	@DeleteMapping("/observed/{id}")
+	public ResponseEntity<String> delete(@PathVariable Long id) {
 		medicineService.delete(id);
-		return " Employee sucessfully deleted" + id;
+		return new ResponseEntity<String>("medicine successfully deleted",HttpStatus.NOT_FOUND);
 	}
 
 }

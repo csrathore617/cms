@@ -10,9 +10,9 @@ import com.pytosoft.model.scheduling.DoctorClinicAssignment;
 
 public interface DoctorClinicAssignmentRepository extends JpaRepository<DoctorClinicAssignment, Long> {
 
-	List<DoctorClinicAssignment> findByDoctorAndClinic(Doctor doctor,Clinic clinic);
+	public List<DoctorClinicAssignment> findByDoctorAndClinic(Doctor doctor,Clinic clinic);
 	
-	List<DoctorClinicAssignment> findByDoctor(Doctor doctor);
+	public List<DoctorClinicAssignment> findByDoctor(Doctor doctor);
 	
-	List<DoctorClinicAssignment> findByClinic(Clinic clinic);
+	public List<DoctorClinicAssignment> findByClinic(Clinic clinic);
 }

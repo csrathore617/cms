@@ -85,7 +85,8 @@ public class FollowUp
 	}
 
 	@ManyToOne(/* optional = false, */cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	@JoinColumn(name = "Followed_By_Doctor", referencedColumnName = "id")
+    @JoinColumn(name = "Followed_By_Doctor", referencedColumnName = "id")
+
 	public Doctor getFollowedByDoctor()
 	{
 		return followedByDoctor;
