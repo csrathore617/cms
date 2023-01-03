@@ -1,5 +1,6 @@
 package com.pytosoft.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,6 +15,7 @@ import com.pytosoft.repository.custom.CustomDoctorRepo;
 public interface DoctorRepository extends JpaRepository<Doctor, Long>,CustomDoctorRepo {
 	
 	Optional<Doctor> findByDoctorName(String doctorName);
+	
 	
 	boolean existsByDoctorName(String doctorName);
 	

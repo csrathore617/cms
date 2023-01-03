@@ -29,16 +29,11 @@ public class MedicalCase
 	private String name;
 
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-	@JoinColumn(name = "Patent_Id", referencedColumnName = "id")
-//	@JsonIgnore
-// @Exists(message="{patent.exist}")
+	
 	private Patient patient;
 
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "Doctor_Id", referencedColumnName = "id")
-//	@Exists(message="{doctor.exist}")
+
 	private Doctor doctor;
 
 	private Date createdOn;
@@ -65,15 +60,17 @@ public class MedicalCase
 		this.id = id;
 	}
 
-	
-//	public Doctor getDoctor()
-//	{
-//		return doctor;
-//	}
-//	public void setDoctor(Doctor doctor)
-//	{
-//		this.doctor = doctor;
-//	}
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "Doctor_Id", referencedColumnName = "id")
+//	@Exists(message="{doctor.exist}")
+	public Doctor getDoctor()
+	{
+		return doctor;
+	}
+	public void setDoctor(Doctor doctor)
+	{
+		this.doctor = doctor;
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -89,16 +86,19 @@ public class MedicalCase
 		return name;
 	}
 
-	
-//	public Patient getPatient()
-//	{
-//		return patient;
-//	}
-//
-//	public void setPatient(Patient patient)
-//	{
-//		this.patient = patient;
-//	}
+	@ManyToOne(optional = false, fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@JoinColumn(name = "Patent_Id", referencedColumnName = "id")
+//	@JsonIgnore
+// @Exists(message="{patent.exist}")
+	public Patient getPatient()
+	{
+		return patient;
+	}
+
+	public void setPatient(Patient patient)
+	{
+		this.patient = patient;
+	}
 
 	public void setId(Integer id)
 	{
@@ -110,7 +110,7 @@ public class MedicalCase
 		this.name = name;
 	}
 
-
+	
 //	@OneToMany(mappedBy = "medicalCase", fetch = FetchType.LAZY)
 //	public List<Visit> getVisits()
 //	{
