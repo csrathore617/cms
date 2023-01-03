@@ -45,4 +45,10 @@ public class FollowUpController {
 		followUpService.deleteById(id);
 		return new ResponseEntity<String>("deleted successfully" + id, HttpStatus.OK);
 	}
+	
+	@GetMapping("/doctor/{id}")
+	public  ResponseEntity<List<FollowUp>>getDoctorById(@PathVariable Long id){
+		return new ResponseEntity<List<FollowUp>>(followUpService.getFollowupByDoctorId(id),HttpStatus.OK);
+			
+	}
 }
