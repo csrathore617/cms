@@ -15,10 +15,9 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "follow_up")
-public class FollowUp 
-{
+public class FollowUp {
 
-   //private static final long serialVersionUID = -668206215797691311L;
+	// private static final long serialVersionUID = -668206215797691311L;
 
 	public static final String FP_FOLLOWUP_PATIENT = "fp_followup_patient";
 
@@ -30,9 +29,10 @@ public class FollowUp
 
 	private Long id;
 
-	@NotNull(message = "{followUp.patient.notNull}")
+	
 	private Patient patient;
 
+	
 	private Doctor followedByDoctor;
 
 	/*
@@ -43,101 +43,83 @@ public class FollowUp
 	@NotNull(message = "{followUp.date}")
 	private Date followUpDate;
 
-	
 	/*
 	 * @NotBlank(message = "{followUp.comment.notBlank}")
 	 * 
 	 * @Size(max = 255, min = 10, message = "{followUp.comment.size}")
 	 */
-	 
+
 	private String comment;
 
 	private Date createdOn;
 
-	//private MedicalCase medicalCase;
+	// private MedicalCase medicalCase;
 
-	//private Tenant tenant;
+	// private Tenant tenant;
 
-	public FollowUp()
-	{
+	public FollowUp() {
 
 	}
 
-	public FollowUp(Long id)
-	{
+	public FollowUp(Long id) {
 		this.id = id;
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id")
-	public Long getId()
-	{
+	public Long getId() {
 		return id;
 	}
 	
-	
-	@ManyToOne(/*optional = false*/ cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "Patient_Id", referencedColumnName = "Id")
-	public Patient getPatient()
-	{
+	@NotNull(message = "{followUp.patient.notNull}")
+	public Patient getPatient() {
 		return patient;
 	}
-
-	@ManyToOne(/* optional = false, */cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "Followed_By_Doctor", referencedColumnName = "id")
-
-	public Doctor getFollowedByDoctor()
-	{
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "Followed_By_Doctor", referencedColumnName = "Id")
+	public Doctor getFollowedByDoctor() {
 		return followedByDoctor;
 	}
 
 	@Column(name = "FollowUp_Date", nullable = false)
-	public Date getFollowUpDate()
-	{
+	public Date getFollowUpDate() {
 		return followUpDate;
 	}
 
 	@Column(name = "Comment", length = 255)
-	public String getComment()
-	{
+	public String getComment() {
 		return comment;
 	}
 
-	public void setId(Long id)
-	{
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public void setPatient(Patient patient)
-	{
+	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
 
-	public void setFollowedByDoctor(Doctor followedByDoctor)
-	{
+	public void setFollowedByDoctor(Doctor followedByDoctor) {
 		this.followedByDoctor = followedByDoctor;
 	}
 
-
-	public void setFollowUpDate(Date followUpDate)
-	{
+	public void setFollowUpDate(Date followUpDate) {
 		this.followUpDate = followUpDate;
 	}
 
-	public void setComment(String comment)
-	{
+	public void setComment(String comment) {
 		this.comment = comment;
 	}
 
 	@Column(name = "Created_On", nullable = false)
-	public Date getCreatedOn()
-	{
+	public Date getCreatedOn() {
 		return createdOn;
 	}
 
-	public void setCreatedOn(Date createdOn)
-	{
+	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
 
