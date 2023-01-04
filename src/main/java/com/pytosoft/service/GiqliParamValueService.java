@@ -18,15 +18,9 @@ public class GiqliParamValueService {
 		return giqliParamValuerepository.save(giqliParamValue);
 	}
 
-//	public List<GiqliParamValue> getAllGiqliParamValue() {
-//		return giqliParamValuerepository.findAll();
-//	}
-
-//	public GiqliParamValue updateGiqliParamValue(GiqliParamValue giqliParamValue, Long id) {
-//
-//		GiqliParamValue giqlidb = giqliParamValuerepository.findById(id).get();
-//		return giqliParamValuerepository.save(giqlidb);
-//	}
+	public List<GiqliParamValue> getAllGiqliParamValue() {
+		return giqliParamValuerepository.findAll();
+	}
 
 	public GiqliParamValue getGiqliParamValueById(Long id) {
 		return giqliParamValuerepository.findById(id).get();
