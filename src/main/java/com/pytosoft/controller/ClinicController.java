@@ -33,29 +33,28 @@ public class ClinicController {
 		return new ResponseEntity<List<Clinic>>(clinicService.findAllByDoctor(doctorId), HttpStatus.OK);
 	}
 
-	@GetMapping("/getAll/{patientId}")
-	public ResponseEntity<List<Clinic>> findAllByPatient(@PathVariable Long patientId) {
-		return new ResponseEntity<List<Clinic>>(clinicService.findAllByPatient(patientId), HttpStatus.OK);
-	}
-
-	@GetMapping("/getAll/{doctorId}/{patientId}")
-	public ResponseEntity<List<Clinic>> findAllByDoctor(@PathVariable Long doctorId, Long patientId) {
-		return new ResponseEntity<List<Clinic>>(clinicService.findAllByDoctorAndPatient(doctorId, patientId),
-				HttpStatus.OK);
-	}
+//	@GetMapping("/getAll/{patientId}")
+//	public ResponseEntity<List<Clinic>> findAllByPatient(@PathVariable Long patientId) {
+//		return new ResponseEntity<List<Clinic>>(clinicService.findAllByPatient(patientId), HttpStatus.OK);
+//	}
+//
+//	@GetMapping("/getAll/{doctorId}/{patientId}")
+//	public ResponseEntity<List<Clinic>> findAllByDoctorAndPatient(@PathVariable Long doctorId,@PathVariable Long patientId) {
+//		return new ResponseEntity<List<Clinic>>(clinicService.findAllByDoctorAndPatient(doctorId, patientId),
+//				HttpStatus.OK);
+//	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Clinic> getByIdClinic(@PathVariable Integer id) {
 		Clinic clinic = clinicService.findById(id);
-		clinicService.saveClinic(clinic);
 
 		return new ResponseEntity<Clinic>(clinic, HttpStatus.OK);
 
 	}
 
-	@PostMapping("/addclinic")
-	public void saveClinic(@RequestBody Clinic clinic) {
-		clinicService.saveClinic(clinic);
+	@PostMapping("/addclinic/{doctorId}/{patientId}")
+	public void saveClinic(@RequestBody Clinic clinic,@PathVariable Long doctorId,@PathVariable Long patientId) {
+		clinicService.saveClinic(clinic,doctorId,patientId);
 	}
 
 	@DeleteMapping("/{id}")
