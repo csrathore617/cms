@@ -43,7 +43,7 @@ public class SurgicalProcedure {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id")
 	public Short getId()
 	{

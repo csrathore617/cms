@@ -11,6 +11,7 @@ import java.util.Set;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.FetchProfile;
 import org.hibernate.annotations.FetchProfiles;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pytosoft.constants.BloodGroup;
@@ -66,6 +67,8 @@ public class Patient {
 	public static final String CAPTURED_LIFE_STYLES = "capturedLifeStyles";
 	
 	public static final String CAPTURED_VITALS = "capturedVitals";
+	
+	public static final String ACTIVE = "active";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -76,7 +79,7 @@ public class Patient {
 	private BloodGroup bloodGroup;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "Patient_Id", nullable = false)
+	@JoinColumn(name = "Patient_Id", referencedColumnName = "Id")
 	private List<AllergyHistory> allergies;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -106,13 +109,16 @@ public class Patient {
 	private Float weight;
 
 	private Date lastActivityDate;
-	@ManyToOne
+	
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Referred_By", referencedColumnName = "Id")
 	private Doctor referredBy;
 
 	private String referredByName;
 	
 	private String occupation;
+	
+	private boolean active;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Patient_Id", referencedColumnName = "Id")
@@ -145,6 +151,17 @@ public class Patient {
 	}
 
 
+	@Value("true")
+	@Column(name = "Active", nullable = false)
+	public boolean getIsActive() {
+		return active;
+	}
+
+	public void setIsActive(boolean active) {
+		this.active = active;
+	}
+
+	
 	@Column(name = "Date_Of_Birth", nullable = false)
 	public Date getDateOfBirth()
 	{

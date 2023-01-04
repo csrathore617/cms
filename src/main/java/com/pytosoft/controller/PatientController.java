@@ -56,18 +56,10 @@ public class PatientController
 	
 	}
 
-//	@RequestMapping(value ="/{id}" ,method = RequestMethod.GET)
-//	@ResponseBody
-//	public ResponseEntity<List<Patient>> getAllByDoctor(@PathVariable Long id)
-//	{
-//		doctorService.findById(id);
-//		return new ResponseEntity<List<Patient>>(HttpStatus.OK);
-//	}
-
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> delete(@PathVariable Long id) {
-		patientService.delete(id);
-	return new ResponseEntity<String>("deleted"+id,HttpStatus.OK);
+	public ResponseEntity<Patient> delete(@PathVariable Long id) {
+		Patient patient=patientService.delete(id);
+	return new ResponseEntity<Patient>(patient,HttpStatus.OK);
 	}
 
 }

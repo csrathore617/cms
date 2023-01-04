@@ -28,9 +28,10 @@ public class PatientService {
 	}
 
 
-	public void delete(Long id) {
-		
-		patientRepository.deleteById(id);
+	public Patient delete(Long id) {
+		Patient patient = patientRepository.findById(id).get();
+		patient.setIsActive(false);
+		return patientRepository.save(patient);
 	}
 
 
@@ -45,11 +46,5 @@ public class PatientService {
 		
 	}
 
-//
-//	public List<Patient> findByDoctor(Long id) {
-//    Doctor doctor=doctorRepository.findById(id).get();
-//    return patientRepository.findByDoctor(doctor);
-//	}
-//
-//	
+
 }

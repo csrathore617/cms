@@ -59,7 +59,7 @@ public class DiseaseHistory
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id")
 	public Long getId()
 	{

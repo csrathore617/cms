@@ -35,7 +35,7 @@ public class EmergencyContact
 	private String relation;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id")
 	public long getId()
 	{
