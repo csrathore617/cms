@@ -43,14 +43,7 @@ public class Medicine {
 	@NotNull(groups = { CreateEntity.class }, message = "{medicine.drug.notNull}")
 
 	@Valid()
-
 	private Drug drug;
-
-	@Min(groups = { CreateEntity.class }, value = 1, message = "{medicine.duration.min}")
-
-	@Max(groups = { CreateEntity.class }, value = 365, message = "{medicine.duration.max}")
-
-	private short duration;
 
 	@NotBlank(groups = { CreateEntity.class }, message = "{medicine.instruction.notBlank}")
 
@@ -64,14 +57,20 @@ public class Medicine {
 
 	private String frequency;
 
+	@Min(groups = { CreateEntity.class }, value = 1, message = "{medicine.duration.min}")
+
+	@Max(groups = { CreateEntity.class }, value = 365, message = "{medicine.duration.max}")
+
+	private short duration;
+
 	private String strength;
 
 	private String durationType;
-	
+
 	@Value("true")
 	private boolean isActive;
 
-//	private FavoriteMedicine favoriteMedicine;
+	private FavoriteMedicine favoriteMedicine;
 
 	private Doctor doctor;
 
@@ -98,16 +97,24 @@ public class Medicine {
 		return id;
 	}
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "Drug_Id", referencedColumnName = "Id", nullable = true)
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	/*
 	 * @Fetch(FetchMode.SELECT)
 	 * 
 	 * @BatchSize(size = 10)
 	 */
 	// @NotFound(action = NotFoundAction.IGNORE)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "Drug_Id", referencedColumnName = "Id", nullable = true)
 	public Drug getDrug() {
 		return drug;
+	}
+
+	public void setDrug(Drug drug) {
+		this.drug = drug;
 	}
 
 	@Column(name = "Duration")
@@ -115,12 +122,8 @@ public class Medicine {
 		return duration;
 	}
 
-	public void setDrug(Drug drug) {
-		this.drug = drug;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+	public void setDuration(short duration) {
+		this.duration = duration;
 	}
 
 	@Column(name = "Instruction", nullable = true)
@@ -139,10 +142,6 @@ public class Medicine {
 
 	public void setFrequency(String frequency) {
 		this.frequency = frequency;
-	}
-
-	public void setDuration(short duration) {
-		this.duration = duration;
 	}
 
 	@Column(name = "strength", length = 100, nullable = true)
@@ -164,6 +163,30 @@ public class Medicine {
 	}
 
 	/**
+	 * @return the isActive
+	 */
+	public boolean getIsActive() {
+		return isActive;
+	}
+
+	/**
+	 * @param isActive the isActive to set
+	 */
+	public void setIsActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "favorite_medicine_Id", referencedColumnName = "Id")
+	public FavoriteMedicine getFavoriteMedicine() {
+		return favoriteMedicine;
+	}
+
+	public void setFavoriteMedicine(FavoriteMedicine favoriteMedicine) {
+		this.favoriteMedicine = favoriteMedicine;
+	}
+
+	/**
 	 * @return the doctor
 	 */
 	@ManyToOne(fetch = FetchType.LAZY, optional = true, cascade = CascadeType.ALL)
@@ -178,32 +201,4 @@ public class Medicine {
 	public void setDoctor(Doctor doctor) {
 		this.doctor = doctor;
 	}
-
-	/**
-	 * @return the isActive
-	 */
-	public boolean getIsActive() {
-		return isActive;
-	}
-
-	/**
-	 * @param isActive the isActive to set
-	 */
-	public void setIsActive(boolean isActive) {
-		this.isActive = isActive;
-	}
-	
-	
-
-	/*
-	 * @ManyToOne(optional = false)
-	 * 
-	 * @JoinColumn(name = "favorite_medicine_Id", referencedColumnName = "Id")
-	 * public FavoriteMedicine getFavoriteMedicine() { return favoriteMedicine; }
-	 */
-	/*
-	 * public void setFavoriteMedicine(FavoriteMedicine favoriteMedicine) {
-	 * this.favoriteMedicine = favoriteMedicine; }
-	 */
-
 }

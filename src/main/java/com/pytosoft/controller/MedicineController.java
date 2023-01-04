@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pytosoft.model.FavoriteMedicine;
 import com.pytosoft.model.Medicine;
 import com.pytosoft.service.MedicineService;
 
@@ -49,7 +50,7 @@ public class MedicineController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> delete(@PathVariable Long id) {
 		medicineService.delete(id);
-		return new ResponseEntity<String>("medicine successfully deleted", HttpStatus.OK);
+		return new ResponseEntity<String>("medicine is not available", HttpStatus.OK);
 	}
 
 	@GetMapping("/getAllByDrug/{drugId}")
@@ -63,4 +64,9 @@ public class MedicineController {
 		return new ResponseEntity<List<Medicine>>(medicineService.findByDoctor(doctorId), HttpStatus.OK);
 	}
 
+	@GetMapping("/getFavMedicine/{doctorId}")
+	public ResponseEntity<List<FavoriteMedicine>> getFavoriteMedicineByDoctor(@PathVariable Long doctorId) {
+		return new ResponseEntity<List<FavoriteMedicine>>(medicineService.findFavoriteMedicineByDoctor(doctorId),
+				HttpStatus.OK);
+	}
 }

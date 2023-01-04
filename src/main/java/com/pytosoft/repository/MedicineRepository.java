@@ -13,4 +13,5 @@ public interface MedicineRepository extends JpaRepository<Medicine, Long> {
 	public List<Medicine> findByDoctor(Doctor doctor);
 
 	public List<Medicine> findByDrug(Drug drug);
+   
 }
