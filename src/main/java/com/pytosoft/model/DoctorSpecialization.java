@@ -1,11 +1,13 @@
 package com.pytosoft.model;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -15,15 +17,14 @@ public class DoctorSpecialization {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Integer id;
-
-//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//	private Doctor doctor;
 
 	// @NotNull(message = "{doctorSpecialization.specialization.notNull}")
 //	@Valid
-//	private String specialization;
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "Specialization_Id", referencedColumnName = "Id")
 	private Specialization specialization;
 
 	public Integer getId() {
@@ -33,14 +34,6 @@ public class DoctorSpecialization {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-//	public Doctor getDoctor() {
-//		return doctor;
-//	}
-//
-//	public void setDoctor(Doctor doctor) {
-//		this.doctor = doctor;
-//	}
 
 	public Specialization getSpecialization() {
 		return specialization;

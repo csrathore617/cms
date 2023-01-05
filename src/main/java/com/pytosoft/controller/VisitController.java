@@ -2,8 +2,11 @@ package com.pytosoft.controller;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,10 +19,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pytosoft.model.Clinic;
 import com.pytosoft.model.Doctor;
 import com.pytosoft.model.Patient;
+import com.pytosoft.model.ReferredVisit;
 import com.pytosoft.model.Visit;
 import com.pytosoft.model.procedure.VisitAttachment;
+import com.pytosoft.service.ClinicService;
 import com.pytosoft.service.DoctorService;
 import com.pytosoft.service.PatientService;
 import com.pytosoft.service.VisitService;
@@ -35,30 +41,50 @@ public class VisitController /*extends BaseController*/
 	@Autowired
 	private VisitService visitService;
 	
-	@Autowired
-	private DoctorService doctorService;
 	
-	@Autowired
-	private PatientService patientService;
-	@PostMapping()
+	
+	@PostMapping("/savevisit/doctor/{doctorId}/patient/{patientId}/clinic/{clinicId}/doctorclinicassignment/{doctorClinicAssignmentId}")
 	@ResponseBody
-	public ResponseEntity<Visit> create(HttpServletRequest request, @RequestBody Visit visit)
+	public ResponseEntity<Visit> create(HttpServletRequest request, @RequestBody Visit visit,
+			@PathVariable("doctorId")Long doctorId,@PathVariable("patientId") Long patientId,
+			@PathVariable("clinicId")Integer clinicId,@PathVariable("doctorClinicAssignmentId")Long doctorClinicAssignmentId)
 	{
-		Visit saved = this.visitService.save(visit);
+		Visit saved = this.visitService.save(visit,doctorId,clinicId,patientId,doctorClinicAssignmentId	);
 		return new ResponseEntity<Visit>(saved, HttpStatus.CREATED);
+	}
+	@GetMapping("/getall")
+	@ResponseBody
+	public ResponseEntity<List<Visit>> getAll(){
+		List<Visit> visitList = visitService.findAll();
+		return new ResponseEntity<List<Visit>>(visitList,HttpStatus.OK);
 	}
 
 	  
 	
 
-	@GetMapping(value = "/findid/{id}")
+	@GetMapping(value = "/findbyid/{visitId}")
 	@ResponseBody
 	public ResponseEntity<Visit> getById(@RequestParam(required = false) Long patentId,
-			@RequestParam(required = false) String detailType, HttpServletRequest request)
+			@RequestParam(required = false) String detailType, HttpServletRequest request
+			,@PathVariable("visitId")Long visitId)
 	{
-		Visit visit =visitService.findById(patentId);
+		Visit visit =visitService.findById(visitId);
 		
 		return new ResponseEntity<Visit>(visit,HttpStatus.OK);
+	}
+	@GetMapping("find=Referred/{doctorId}")
+	@ResponseBody
+	public ResponseEntity<ReferredVisit> getReferredVisit(HttpServletRequest request, @PathVariable("doctorId") Long doctorId,
+			@RequestParam(required = false) String detailType)
+	{
+		/*
+		 * Doctor doctor = null; Clinic clinic =
+		 * getLoggedInClinicForClinicAdmin(request); if (clinic == null) { doctor =
+		 * getLoggedInDoctor(request); }
+		 */
+//		Visit visit = this.visitService.getReferredVisit(visitId, doctor, detailType);
+		ReferredVisit referredVisit = visitService.getReferredVisit(doctorId);
+		return new ResponseEntity<ReferredVisit>(referredVisit, HttpStatus.OK);
 	}
 
 	
@@ -80,6 +106,21 @@ public class VisitController /*extends BaseController*/
 //		return new ResponseEntity<Visit>(null, HttpStatus.OK);
 		return null;
 	}
+	
+//	@GetMapping("/get/clinicid/{clinic_id}/doctorid/{doc_id}/")
+//	@ResponseBody
+//	public ResponseEntity<Visit> get(@PathVariable("id") Integer visitId,
+//			@PathVariable("doc_id")Long docId,@PathVariable("clinic_id")Integer clinicId,@RequestParam(required = false) String detailType)
+//	{
+//		Doctor doctor = null;
+//		Clinic clinic = clinicService.findById(clinicId);
+//		if (clinic == null)
+//		{
+//			doctor = getLoggedInDoctor(request);
+//		}
+//		VisitVO visit = this.visitService.get(visitId, doctor, detailType);
+//		return new ResponseEntity<VisitVO>(visit, HttpStatus.OK);
+//	}
 
 //	@GetMapping(value = "/{id}/pdf")
 //	@ResponseBody

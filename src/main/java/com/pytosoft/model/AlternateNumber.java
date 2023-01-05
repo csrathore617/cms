@@ -1,17 +1,17 @@
 package com.pytosoft.model;
 
-import java.io.Serializable;
+//import java.io.Serializable;
 
 import jakarta.persistence.*;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+//import javax.validation.constraints.Pattern;
+//import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "alternatenumber")
-public class AlternateNumber implements Serializable
+public class AlternateNumber 
 {
 
-	private static final long serialVersionUID = 1138466566931589806L;
+	//private static final long serialVersionUID = 1138466566931589806L;
 
 	private Integer id;
 	
