@@ -20,7 +20,7 @@ public class ComplainService {
 	private ObservedComplainRepository observedComplainRepository;
 
 	@Autowired
-	private DoctorRepository repo;
+	private DoctorRepository repository;
 
 	public List<Complain> listAll() {
 		return complainRepository.findAll();
@@ -45,7 +45,7 @@ public class ComplainService {
 	}
 
 	public List<Complain> findAllByDoctor(Long id) {
-		Doctor doc = repo.findById(id).get();
+		Doctor doc = repository.findById(id).get();
 		return complainRepository.findByDoctor(doc);
 	}
 }

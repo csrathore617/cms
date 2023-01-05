@@ -1,7 +1,6 @@
 package com.pytosoft.model;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 import com.pytosoft.constants.OperatingDays;
 
@@ -21,7 +20,7 @@ public class OperatingDaysHours
 
 	private Long id;
 
-	@NotNull(message = "{availableFacility.facility.notNull}")
+	//@NotNull(message = "{availableFacility.facility.notNull}")
 	@Valid
 	private OperatingDays operatingDay;
 

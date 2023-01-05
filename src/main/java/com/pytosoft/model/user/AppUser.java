@@ -52,10 +52,7 @@ import jakarta.persistence.Table;
 //@FetchProfiles({
 //		@FetchProfile(name = "patient_address_fetch_profile", fetchOverrides = { @FetchProfile.FetchOverride(entity = Patient.class, association = "address", mode = FetchMode.JOIN) }),
 //		@FetchProfile(name = "doctor_fetch_profile", fetchOverrides = { @FetchProfile.FetchOverride(entity = Doctor.class, association = "address", mode = FetchMode.JOIN) }) })
-public class AppUser implements Serializable
-{
-	private static final long serialVersionUID = -923677343129369887L;
-
+public class AppUser {
 	public static final String REGISTRATION_ID = "id";
 
 	public static final String FIRST_NAME = "firstName";

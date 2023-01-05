@@ -6,6 +6,7 @@ import com.pytosoft.model.Appointment;
 import com.pytosoft.model.Patient;
 import com.pytosoft.model.v3.LabTestReferral;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
@@ -31,13 +32,22 @@ public class LabOrder {
 	private LabTestReferral labTestReferral;
 //	private Set<LabOrderItem> labOrderItems;
 
-//	private Patient patient;
+	private Patient patient;
 
 //	private InvestigationStatus status;
 
 //	private Set<LabOrderActivityHistory> labOrderActivityHistories;
 
 //	private Invoice invoice;
+	@ManyToOne(fetch = FetchType.LAZY, optional = true,cascade = CascadeType.ALL)
+	@JoinColumn(name = "Lab_Test_Referral_Id", referencedColumnName = "Id")
+	public LabTestReferral getLabTestReferral() {
+		return labTestReferral;
+	}
+
+	public void setLabTestReferral(LabTestReferral labTestReferral) {
+		this.labTestReferral = labTestReferral;
+	}
 
 	private Patient patientVO;
 
@@ -84,14 +94,14 @@ public class LabOrder {
 		this.labOrderItems = labOrderItems;
 	}*/
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false,cascade = CascadeType.ALL)
 	@JoinColumn(name = "Patient_Id", referencedColumnName = "Id")
 	public Patient getPatient() {
-		return patientVO;
+		return patient;
 	}
 
 	public void setPatient(Patient patient) {
-		this.patientVO = patient;
+		this.patient = patient;
 	}
 
 	/*@Column(name = "Status", nullable = false, length = 100)
