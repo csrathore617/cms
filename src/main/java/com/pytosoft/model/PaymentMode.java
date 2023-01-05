@@ -3,9 +3,12 @@ package com.pytosoft.model;
 
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotBlank;
-
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "payment_mode")
@@ -14,7 +17,7 @@ public class PaymentMode
 
 	private Long id;
 
-	@NotBlank(message = "{paymentMode.mode.notBlank}")
+	//@NotBlank(message = "{paymentMode.mode.notBlank}")
 	@Size(max = 50, message = "{paymentMode.mode.size}")
 	private String mode;
 
