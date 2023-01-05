@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pytosoft.model.FavoriteMedicine;
 import com.pytosoft.model.Medicine;
 import com.pytosoft.service.MedicineService;
 
@@ -31,7 +32,7 @@ public class MedicineController {
 	@PostMapping("/addMedicine")
 	public ResponseEntity<String> add(@RequestBody Medicine medicine) {
 		medicineService.save(medicine);
-		return new ResponseEntity<String>("new medicine Added",HttpStatus.NOT_FOUND);
+		return new ResponseEntity<String>("new medicine Added", HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
@@ -39,17 +40,33 @@ public class MedicineController {
 		try {
 			Medicine medicine = medicineService.getByID(id);
 			medicineService.save(medicine);
-			return new ResponseEntity<Medicine>(medicine, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Medicine>(medicine, HttpStatus.OK);
 
 		} catch (NoSuchElementException e) {
 			return new ResponseEntity<Medicine>(HttpStatus.NOT_FOUND);
 		}
 	}
 
-	@DeleteMapping("/observed/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<String> delete(@PathVariable Long id) {
 		medicineService.delete(id);
-		return new ResponseEntity<String>("medicine successfully deleted",HttpStatus.NOT_FOUND);
+		return new ResponseEntity<String>("medicine is not available", HttpStatus.OK);
 	}
 
+	@GetMapping("/getAllByDrug/{drugId}")
+	public ResponseEntity<List<Medicine>> getMedicineByDrug(@PathVariable Long drugId) {
+		return new ResponseEntity<List<Medicine>>(medicineService.findByDrug(drugId), HttpStatus.OK);
+
+	}
+
+	@GetMapping("/getAllByDoc/{doctorId}")
+	public ResponseEntity<List<Medicine>> getMedicineByDoctor(@PathVariable Long doctorId) {
+		return new ResponseEntity<List<Medicine>>(medicineService.findByDoctor(doctorId), HttpStatus.OK);
+	}
+
+	@GetMapping("/getFavMedicine/{doctorId}")
+	public ResponseEntity<List<FavoriteMedicine>> getFavoriteMedicineByDoctor(@PathVariable Long doctorId) {
+		return new ResponseEntity<List<FavoriteMedicine>>(medicineService.findFavoriteMedicineByDoctor(doctorId),
+				HttpStatus.OK);
+	}
 }
