@@ -5,10 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pytosoft.model.Clinic;
 import com.pytosoft.model.Doctor;
+import com.pytosoft.model.MedicalCase;
 import com.pytosoft.model.Patient;
+import com.pytosoft.model.ReferredVisit;
 import com.pytosoft.model.Visit;
+import com.pytosoft.model.scheduling.DoctorClinicAssignment;
+import com.pytosoft.repository.DoctorRepository;
 import com.pytosoft.repository.VisitRepository;
+import com.pytosoft.vo.VisitVO;
 
 @Service
 public class VisitService {
@@ -16,14 +22,51 @@ public class VisitService {
 	@Autowired
 	private VisitRepository repo;
 	
+	@Autowired
+	private DoctorRepository doctorRepository;
+	
+	@Autowired
+	private DoctorService doctorService;
+	
+	@Autowired
+	private PatientService patientService;
+	
+	@Autowired
+	private ClinicService clinicService;
+	
+	@Autowired
+	private DoctorClinicAssignmentService doctorClinicAssignmentService;
+	
+	
 	public List<Visit> findAll() {
 		return repo.findAll();
 	}
 
-	public Visit save(Visit entity) {
-
+	public Visit save(Visit entity,Long doctorID,Integer clinicID,Long patientId,Long doctorClinicAssignmentId) {
+		Doctor doctor = doctorService.findById(doctorID);
+		Patient patient = patientService.getPatientById(patientId, null, null);
+		Clinic clinic = clinicService.findById(clinicID);
+		DoctorClinicAssignment clinicAssignment = doctorClinicAssignmentService.findById(doctorClinicAssignmentId);
+		
+		entity.setClinic(clinic);
+		
+		entity.getMedicalCase().setDoctor(doctor);
+		entity.getMedicalCase().setPatient(patient);
+		entity.getAppointment().setPatient(patient);
+		entity.getAppointment().getBillableService().setCreatedBy(doctor);
+		entity.getAppointment().getLabOrder().setPatient(patient);
+		entity.getAppointment().setDoctorClinicAssignment(clinicAssignment);
+		entity.getMedicalCase().setAppointment(entity.getAppointment());
 		return repo.save(entity);
 
+	}
+	public ReferredVisit getReferredVisit(Long doctorId) {
+		Doctor doctor = doctorRepository.findById(doctorId).get();
+		MedicalCase medicalCase = repo.findByMedicalCaseDoctorID(doctorId).get(0);
+		Visit visit = repo.findByMedicalCase(medicalCase).get();
+		ReferredVisit referredVisit = repo.findByVisitId(visit).get();
+	
+		return referredVisit;
 	}
 
 	/*

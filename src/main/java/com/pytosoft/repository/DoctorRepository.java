@@ -24,7 +24,7 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long>,CustomDoct
 	void deleteByDoctorName(String doctorName);
 	
 //	ListResponse findAllByClinic(Doctor doctor, Clinic clinic);
-	@Query("select dp from DegreePassed dp where id = ?1 ")
+	@Query("select dp from DegreePassed dp where dp.id = ?1 ")
 	DegreePassed findByDegreePassedId(Long id);
 	
 	@Modifying 
