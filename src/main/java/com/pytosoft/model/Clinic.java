@@ -394,7 +394,11 @@ public class Clinic
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 
 
+
 	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id")
+
+	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id" /*, nullable = false*/)
+
 
 	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id" /*, nullable = false*/)
 
@@ -414,7 +418,11 @@ public class Clinic
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 
 
+
 	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id")
+
+	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id" )
+
 
 	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id" )
 

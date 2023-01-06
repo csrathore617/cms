@@ -1,9 +1,6 @@
 package com.pytosoft.model;
 
 import java.util.Date;
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -14,7 +11,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
@@ -28,6 +24,7 @@ public class MedicalCase {
 
 //	@JsonIgnore
 // @Exists(message="{patent.exist}")
+
 	private Patient patient;
 
 	private Doctor doctor;
@@ -58,6 +55,7 @@ public class MedicalCase {
 //	@Exists(message="{doctor.exist}")
 
 	public Doctor getDoctor() {
+
 		return doctor;
 	}
 
@@ -89,8 +87,11 @@ public class MedicalCase {
 	}
 
 	public void setId(Integer id) {
-
 		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 //	@OneToMany(mappedBy = "medicalCase", fetch = FetchType.LAZY)
