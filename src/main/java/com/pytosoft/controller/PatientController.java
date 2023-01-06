@@ -50,6 +50,7 @@ public class PatientController
 	
 	@RequestMapping(value = "/admins", method = RequestMethod.GET)
 	@ResponseBody
+	
 	public ResponseEntity<List<Patient>> getAllPatients()
 	{
 		return new ResponseEntity<List<Patient>> (patientService.findAllPatient(),HttpStatus.OK);

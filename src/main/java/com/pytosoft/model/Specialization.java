@@ -11,7 +11,7 @@ public class Specialization {
 	
 	private Integer id;
 	
-	private String nameOfDegree;
+	private String name;
 
 	public Integer getId() {
 		return id;
@@ -21,12 +21,12 @@ public class Specialization {
 		this.id = id;
 	}
 
-	public String getNameOfDegree() {
-		return nameOfDegree;
+	public String getName() {
+		return name;
 	}
 
-	public void setNameOfDegree(String nameOfDegree) {
-		this.nameOfDegree = nameOfDegree;
+	public void setName(String nameOfDegree) {
+		this.name = nameOfDegree;
 	}
 
 	

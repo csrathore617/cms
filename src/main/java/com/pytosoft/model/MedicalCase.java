@@ -20,19 +20,14 @@ import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "medical_case")
-public class MedicalCase 
-{
+public class MedicalCase {
 
-	
 	private Integer id;
-	
-	private String name;
 
+	private String name;
 	
 	
 	private Patient patient;
-
-	
 
 	private Doctor doctor;
 
@@ -48,43 +43,39 @@ public class MedicalCase
 
 //	private List<Visit> visits;
 
-
-	public MedicalCase()
-	{
+	public MedicalCase() {
 
 	}
 
-	public MedicalCase(Integer id)
-	{
+	public MedicalCase(Integer id) {
 		super();
 		this.id = id;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "Doctor_Id", referencedColumnName = "id")
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "Doctor_Id", referencedColumnName = "Id")
 //	@Exists(message="{doctor.exist}")
 	public Doctor getDoctor()
 	{
 		return doctor;
 	}
-	public void setDoctor(Doctor doctor)
-	{
+
+	public void setDoctor(Doctor doctor) {
+
 		this.doctor = doctor;
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id")
-	public Integer getId()
-	{
+	public Integer getId() {
 		return id;
 	}
-
-	@Column(name = "Name", nullable = false, length = 50)
-	public String getName()
-	{
-		return name;
+	public void setId(Integer id) {
+		this.id = id;
 	}
+
+
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	@JoinColumn(name = "Patent_Id", referencedColumnName = "id")
@@ -100,17 +91,15 @@ public class MedicalCase
 		this.patient = patient;
 	}
 
-	public void setId(Integer id)
-	{
-		this.id = id;
+	@Column(name = "Name", nullable = false, length = 50)
+	public String getName() {
+		return name;
 	}
-
-	public void setName(String name)
-	{
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	
+
 //	@OneToMany(mappedBy = "medicalCase", fetch = FetchType.LAZY)
 //	public List<Visit> getVisits()
 //	{
@@ -122,60 +111,49 @@ public class MedicalCase
 //		this.visits = visits;
 //	}
 
-	@Column(name = "Created_On", nullable = false)
-	public Date getCreatedOn()
-	{
+	@Column(name = "Created_On", nullable = true)
+	public Date getCreatedOn() {
 		return createdOn;
 	}
 
-	public void setCreatedOn(Date createdOn)
-	{
+	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
 
 	@Column(name = "Comments", nullable = true, length = 255)
-	public String getComments()
-	{
+	public String getComments() {
 		return comments;
 	}
 
-	public void setComments(String comments)
-	{
+	public void setComments(String comments) {
 		this.comments = comments;
 	}
 
 	@Column(name = "Tags", nullable = true, length = 500)
-	public String getTags()
-	{
+	public String getTags() {
 		return tags;
 	}
 
-	public void setTags(String tags)
-	{
+	public void setTags(String tags) {
 		this.tags = tags;
 	}
 
 	@Transient
-	public Appointment getAppointment()
-	{
+	public Appointment getAppointment() {
 		return appointment;
 	}
 
-	public void setAppointment(Appointment appointment)
-	{
+	public void setAppointment(Appointment appointment) {
 		this.appointment = appointment;
 	}
 
-	@Column(name = "visited_On", nullable = false)
-	public Date getVisitedOn()
-	{
+	@Column(name = "visited_On", nullable = true)
+	public Date getVisitedOn() {
 		return visitedOn;
 	}
 
-	public void setVisitedOn(Date visitedOn)
-	{
+	public void setVisitedOn(Date visitedOn) {
 		this.visitedOn = visitedOn;
 	}
 
-	
 }

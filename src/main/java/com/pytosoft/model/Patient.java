@@ -8,14 +8,10 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.FetchProfile;
-import org.hibernate.annotations.FetchProfiles;
 import org.springframework.beans.factory.annotation.Value;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pytosoft.constants.BloodGroup;
-import com.pytosoft.model.user.AppUser;
+import com.pytosoft.model.procedure.CapturedVital;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
