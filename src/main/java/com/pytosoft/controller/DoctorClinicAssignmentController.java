@@ -25,8 +25,8 @@ public class DoctorClinicAssignmentController {
 	private DoctorClinicAssignmentService doctorClinicAssignmentService;
 
 	@GetMapping("/getAll")
-	public List<DoctorClinicAssignment> getAll() {
-		return doctorClinicAssignmentService.findAll();
+	public ResponseEntity<List<DoctorClinicAssignment>> getAll() {
+		return new ResponseEntity<List<DoctorClinicAssignment>>(doctorClinicAssignmentService.findAll(),HttpStatus.OK);
 
 	}
 	
@@ -34,19 +34,17 @@ public class DoctorClinicAssignmentController {
 	public ResponseEntity<List<DoctorClinicAssignment>> findByDoctor(@PathVariable Long docId)
 	{
 		
-	  return new ResponseEntity<List<DoctorClinicAssignment>>(doctorClinicAssignmentService.findAllByDoctor(docId),HttpStatus.NOT_FOUND);
+	  return new ResponseEntity<List<DoctorClinicAssignment>>(doctorClinicAssignmentService.findAllByDoctor(docId),HttpStatus.OK);
 	}
 	
 
 	@GetMapping("/{id}")
 	public ResponseEntity<DoctorClinicAssignment> getById(@PathVariable Long id) {
-		try {
+		
 			DoctorClinicAssignment doctorClinicAssignment = doctorClinicAssignmentService.findById(id);
 
-			return new ResponseEntity<DoctorClinicAssignment>(doctorClinicAssignment, HttpStatus.NOT_FOUND);
-		} catch (NoSuchElementException e) {
-			return new ResponseEntity<DoctorClinicAssignment>(HttpStatus.NOT_FOUND);
-		}
+			return new ResponseEntity<DoctorClinicAssignment>(doctorClinicAssignment, HttpStatus.OK);
+		
 	}
 
 	@PostMapping("/add/{docId}/{clinicId}")

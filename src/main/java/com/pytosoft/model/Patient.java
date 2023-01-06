@@ -61,15 +61,15 @@ public class Patient {
 	public static final String TENANT_PATIENT_MAPPINGS = "tenantPatientMappings";
 
 	public static final String CAPTURED_LIFE_STYLES = "capturedLifeStyles";
-	
+
 	public static final String CAPTURED_VITALS = "capturedVitals";
-	
+
 	public static final String ACTIVE = "active";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private Date dateOfBirth;
 
 	private BloodGroup bloodGroup;
@@ -105,15 +105,15 @@ public class Patient {
 	private Float weight;
 
 	private Date lastActivityDate;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Referred_By", referencedColumnName = "Id")
 	private Doctor referredBy;
 
 	private String referredByName;
-	
+
 	private String occupation;
-	
+
 	private boolean active;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -127,13 +127,12 @@ public class Patient {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Patient_Id", referencedColumnName = "Id")
 	private Set<CapturedLifeStyle> capturedLifeStyles;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Patient_Id", referencedColumnName = "Id")
 	private Set<CapturedVital> capturedVitals;
 
-	public Patient()
-	{
+	public Patient() {
 
 	}
 
@@ -141,11 +140,9 @@ public class Patient {
 		return id;
 	}
 
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 
 	@Value("true")
 	@Column(name = "Active", nullable = false)
@@ -157,121 +154,95 @@ public class Patient {
 		this.active = active;
 	}
 
-	
 	@Column(name = "Date_Of_Birth", nullable = false)
-	public Date getDateOfBirth()
-	{
+	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
 
 	@Column(name = "Blood_Group", length = 25, nullable = true)
 	@Enumerated(EnumType.STRING)
-	public BloodGroup getBloodGroup()
-	{
+	public BloodGroup getBloodGroup() {
 		return bloodGroup;
 	}
 
-	public void setBloodGroup(BloodGroup bloodGroup)
-	{
+	public void setBloodGroup(BloodGroup bloodGroup) {
 		this.bloodGroup = bloodGroup;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth)
-	{
+	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	
-	public List<AllergyHistory> getAllergies()
-	{
+	public List<AllergyHistory> getAllergies() {
 		return allergies;
 	}
 
-	public void setAllergies(List<AllergyHistory> allergies)
-	{
+	public void setAllergies(List<AllergyHistory> allergies) {
 		this.allergies = allergies;
 	}
 
-	public List<FamilyHistory> getFamilyHistories()
-	{
+	public List<FamilyHistory> getFamilyHistories() {
 		return familyHistories;
 	}
 
-	public void setFamilyHistories(List<FamilyHistory> familyHistories)
-	{
+	public void setFamilyHistories(List<FamilyHistory> familyHistories) {
 		this.familyHistories = familyHistories;
 	}
 
-	
-	public List<EmergencyContact> getEmergencyContacts()
-	{
+	public List<EmergencyContact> getEmergencyContacts() {
 		return emergencyContacts;
 	}
 
-	public void setEmergencyContacts(List<EmergencyContact> emergencyContacts)
-	{
+	public void setEmergencyContacts(List<EmergencyContact> emergencyContacts) {
 		this.emergencyContacts = emergencyContacts;
 	}
-	
-	
-	public List<DiseaseHistory> getDiseases()
-	{
+
+	public List<DiseaseHistory> getDiseases() {
 		return diseases;
 	}
 
-	public void setDiseases(List<DiseaseHistory> diseases)
-	{
+	public void setDiseases(List<DiseaseHistory> diseases) {
 		this.diseases = diseases;
 	}
 
-	public List<SurgicalHistory> getSurgeries()
-	{
+	public List<SurgicalHistory> getSurgeries() {
 		return surgeries;
 	}
 
-	public void setSurgeries(List<SurgicalHistory> surgeries)
-	{
+	public void setSurgeries(List<SurgicalHistory> surgeries) {
 		this.surgeries = surgeries;
 	}
 
-	public List<ImmunizationHistory> getImmunizations()
-	{
+	public List<ImmunizationHistory> getImmunizations() {
 		return immunizations;
 	}
 
-	public void setImmunizations(List<ImmunizationHistory> immunizations)
-	{
+	public void setImmunizations(List<ImmunizationHistory> immunizations) {
 		this.immunizations = immunizations;
 	}
 
-	public List<Medication> getMedications()
-	{
+	public List<Medication> getMedications() {
 		return medications;
 	}
 
-	public void setMedications(List<Medication> medications)
-	{
+	public void setMedications(List<Medication> medications) {
 		this.medications = medications;
 	}
 
-	public List<MedicalCase> getMedicalCases()
-	{
+	public List<MedicalCase> getMedicalCases() {
 		return medicalCases;
 	}
 
-	public void setMedicalCases(List<MedicalCase> medicalCases)
-	{
+	public void setMedicalCases(List<MedicalCase> medicalCases) {
 		this.medicalCases = medicalCases;
 	}
 
 	@Column(name = "notes", length = 255, nullable = true)
-	public String getNotes()
-	{
+	public String getNotes() {
 		return notes;
 	}
 
-	public void setNotes(String notes)
-	{
+	public void setNotes(String notes) {
 		this.notes = notes;
 	}
 
@@ -285,63 +256,49 @@ public class Patient {
 	}
 
 	@Column(name = "height")
-	public Float getHeight()
-	{
+	public Float getHeight() {
 		return height;
 	}
 
-	public void setHeight(Float height)
-	{
+	public void setHeight(Float height) {
 		this.height = height;
 	}
 
 	@Column(name = "weight")
-	public Float getWeight()
-	{
+	public Float getWeight() {
 		return weight;
 	}
 
-	public void setWeight(Float weight)
-	{
+	public void setWeight(Float weight) {
 		this.weight = weight;
 	}
 
-
 	@Column(name = "Last_Activity_Date", nullable = false)
-	public Date getLastActivityDate()
-	{
+	public Date getLastActivityDate() {
 		return lastActivityDate;
 	}
 
-	public void setLastActivityDate(Date lastActivityDate)
-	{
+	public void setLastActivityDate(Date lastActivityDate) {
 		this.lastActivityDate = lastActivityDate;
 	}
 
-	
-	
-	public Doctor getReferredBy()
-	{
+	public Doctor getReferredBy() {
 		return referredBy;
 	}
 
-	public void setReferredBy(Doctor referredBy)
-	{
+	public void setReferredBy(Doctor referredBy) {
 		this.referredBy = referredBy;
 	}
 
 	@Column(name = "Referred_By_Name", length = 100, nullable = true)
-	public String getReferredByName()
-	{
+	public String getReferredByName() {
 		return referredByName;
 	}
 
-	public void setReferredByName(String referredByName)
-	{
+	public void setReferredByName(String referredByName) {
 		this.referredByName = referredByName;
 	}
 
-	
 	public Set<CapturedLifeStyle> getCapturedLifeStyles() {
 		return capturedLifeStyles;
 	}
@@ -350,7 +307,7 @@ public class Patient {
 		this.capturedLifeStyles = capturedLifeStyles;
 	}
 
-		public Set<CapturedVital> getCapturedVitals() {
+	public Set<CapturedVital> getCapturedVitals() {
 		return capturedVitals;
 	}
 
@@ -361,7 +318,7 @@ public class Patient {
 	public void sortCapturedLifeStyle() {
 		Comparator<CapturedLifeStyle> comparator = new Comparator<CapturedLifeStyle>() {
 			public int compare(CapturedLifeStyle o1, CapturedLifeStyle o2) {
-				if(o1.getLifeStyle().getOrdering() == null){
+				if (o1.getLifeStyle().getOrdering() == null) {
 					return 0;
 				}
 				return o1.getLifeStyle().getOrdering().compareTo(o2.getLifeStyle().getOrdering());
@@ -374,11 +331,11 @@ public class Patient {
 		this.capturedLifeStyles.clear();
 		this.capturedLifeStyles.addAll(temp);
 	}
-	
+
 	public void sortCapturedVitals() {
 		Comparator<CapturedVital> comparator = new Comparator<CapturedVital>() {
 			public int compare(CapturedVital o1, CapturedVital o2) {
-				if(o1.getCreatedOn() == null){
+				if (o1.getCreatedOn() == null) {
 					return 0;
 				}
 				return o2.getCreatedOn().compareTo(o1.getCreatedOn());

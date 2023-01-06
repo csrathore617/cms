@@ -39,16 +39,6 @@ public class Clinic
 //	@SuppressWarnings("unused")
 	//private static final long serialVersionUID = -352911380775268279L;
 
-	public static final String FP_CLINIC_SPEC = "fp_clinic_spec";
-
-	public static final String FP_CLINIC_FEC = "fp_clinic_fec";
-
-	public static final String FP_CLINIC_ADDRESS = "fp_clinic_address";
-
-	public static final String FP_CLINIC_PHONE_NUMBERS = "fp_clinic_phone_numbers";
-
-	public static final String FP_CLINIC_PAYMENT_MODES = "fp_clinic_payment_modes";
-
 	public static final String NAME = "name";
 
 	public static final String ADDRESS = "address";
@@ -109,7 +99,7 @@ public class Clinic
 	private boolean active;
 
 //	@Deprecated
-//	private String acceptedPaymentMode;
+//	private String acceptedPaymentMode;ac
 
 	@Size(max = 255, message = "{clinic.businessLogoPath.size}")
 	private String businessLogoPath;
@@ -133,9 +123,15 @@ public class Clinic
 	private Set<AvailableFacility> availableFacilities;
 
 	private Set<OperatingDaysHours> operatingDaysHours;
-//
-//	private Tenant tenant;
-//
+
+//	@ManyToOne(fetch = FetchType.LAZY, optional = true,cascade = CascadeType.ALL)
+//	@JoinColumn(name = "Doctor_Id", referencedColumnName = "Id")
+//	private Doctor doctor;
+//	
+//	@ManyToOne(fetch = FetchType.LAZY, optional = true,cascade = CascadeType.ALL)
+//	@JoinColumn(name = "Patient_Id", referencedColumnName = "Id")
+//	private Patient patient;
+
 //	private ClinicGeoLocation clinicGeoLocation;
 //
 //	// only for ui purpose
@@ -159,6 +155,35 @@ public class Clinic
 		super();
 		this.id = id;
 		this.name = name;
+	}
+	
+	
+
+	public Clinic(Integer id, String name, String email, Date startedIn, Address address, String phoneNumber1,
+			String phoneNumber2, String phoneNumber3, Set<PaymentMode> acceptedPaymentModes, boolean ambulanceService,
+			boolean active, String businessLogoPath, String notes, String fax1, String fax2,
+			Set<ClinicSpecialization> clinicSpecializations, Set<AvailableFacility> availableFacilities,
+			Set<OperatingDaysHours> operatingDaysHours, boolean hospital) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.startedIn = startedIn;
+		this.address = address;
+		this.phoneNumber1 = phoneNumber1;
+		this.phoneNumber2 = phoneNumber2;
+		this.phoneNumber3 = phoneNumber3;
+		this.acceptedPaymentModes = acceptedPaymentModes;
+		this.ambulanceService = ambulanceService;
+		this.active = active;
+		this.businessLogoPath = businessLogoPath;
+		this.notes = notes;
+		this.fax1 = fax1;
+		this.fax2 = fax2;
+		this.clinicSpecializations = clinicSpecializations;
+		this.availableFacilities = availableFacilities;
+		this.operatingDaysHours = operatingDaysHours;
+		this.hospital = hospital;
 	}
 
 	@Id
@@ -367,7 +392,23 @@ public class Clinic
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
+
+
+
+	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id")
+
 	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id" /*, nullable = false*/)
+
+
+	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id" /*, nullable = false*/)
+
+
+	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id" /*, nullable = false*/)
+
+
+	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id" /*, nullable = false*/)
+
 	public Set<PaymentMode> getAcceptedPaymentModes()
 	{
 		return acceptedPaymentModes;
@@ -379,7 +420,23 @@ public class Clinic
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
+
+
+
+	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id")
+
 	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id" )
+
+
+	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id" )
+
+
+	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id" )
+
+
+	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id" )
+
 	public Set<OperatingDaysHours> getOperatingDaysHours()
 	{
 		return operatingDaysHours;
@@ -401,18 +458,26 @@ public class Clinic
 		this.hospital = hospital;
 	}
 
-//	@ManyToOne(fetch = FetchType.LAZY, optional = true)
-//	@JoinColumn(name = "Tenant_Id", referencedColumnName = "Id")
-//	@JSON(include = false)
-//	@JsonIgnore
-//	public Tenant getTenant()
+	
+//	public Doctor getDoctor()
 //	{
-//		return tenant;
+//		return doctor;
 //	}
 //
-//	public void setTenant(Tenant tenant)
+//	public void setDoctor(Doctor doctor)
 //	{
-//		this.tenant = tenant;
+//		this.doctor = doctor;
+//	}
+//	
+//	
+//	public Patient getPatient()
+//	{
+//		return patient;
+//	}
+//
+//	public void setPatient(Patient patient)
+//	{
+//		this.patient = patient;
 //	}
 
 //	@OneToOne(fetch = FetchType.LAZY, mappedBy = "clinic")

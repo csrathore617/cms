@@ -1,9 +1,6 @@
 package com.pytosoft.model;
 
 import java.util.Date;
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -14,7 +11,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
@@ -25,8 +21,10 @@ public class MedicalCase {
 	private Integer id;
 
 	private String name;
-	
-	
+
+//	@JsonIgnore
+// @Exists(message="{patent.exist}")
+
 	private Patient patient;
 
 	private Doctor doctor;
@@ -55,8 +53,9 @@ public class MedicalCase {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "Doctor_Id", referencedColumnName = "Id")
 //	@Exists(message="{doctor.exist}")
-	public Doctor getDoctor()
-	{
+
+	public Doctor getDoctor() {
+
 		return doctor;
 	}
 
@@ -71,34 +70,29 @@ public class MedicalCase {
 	public Integer getId() {
 		return id;
 	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-
-
-	@ManyToOne(optional = false, fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-	@JoinColumn(name = "Patent_Id", referencedColumnName = "id")
-//	@JsonIgnore
-// @Exists(message="{patent.exist}")
-	public Patient getPatient()
-	{
-		return patient;
-	}
-
-	public void setPatient(Patient patient)
-	{
-		this.patient = patient;
-	}
 
 	@Column(name = "Name", nullable = false, length = 50)
 	public String getName() {
 		return name;
 	}
+
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "Patient_Id", referencedColumnName = "id")
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-
 
 //	@OneToMany(mappedBy = "medicalCase", fetch = FetchType.LAZY)
 //	public List<Visit> getVisits()

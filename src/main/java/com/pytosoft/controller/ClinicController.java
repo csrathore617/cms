@@ -1,7 +1,6 @@
 package com.pytosoft.controller;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,45 +16,49 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pytosoft.model.Clinic;
 import com.pytosoft.service.ClinicService;
 
-
 @RestController
 @RequestMapping("/clinic")
 public class ClinicController {
 
 	@Autowired
 	private ClinicService clinicService;
-	
+
 	@GetMapping("/getAll")
-	public List<Clinic> getAllClinics()
-	{
-		return clinicService.getAllClinic();
+	public ResponseEntity<List<Clinic>> getAllClinics() {
+		return new ResponseEntity<List<Clinic>>(clinicService.getAllClinic(), HttpStatus.OK);
 	}
-	
+
+	@GetMapping("/getAll/{doctorId}")
+	public ResponseEntity<List<Clinic>> findAllByDoctor(@PathVariable Long doctorId) {
+		return new ResponseEntity<List<Clinic>>(clinicService.findAllByDoctor(doctorId), HttpStatus.OK);
+	}
+
+//	@GetMapping("/getAll/{patientId}")
+//	public ResponseEntity<List<Clinic>> findAllByPatient(@PathVariable Long patientId) {
+//		return new ResponseEntity<List<Clinic>>(clinicService.findAllByPatient(patientId), HttpStatus.OK);
+//	}
+//
+//	@GetMapping("/getAll/{doctorId}/{patientId}")
+//	public ResponseEntity<List<Clinic>> findAllByDoctorAndPatient(@PathVariable Long doctorId,@PathVariable Long patientId) {
+//		return new ResponseEntity<List<Clinic>>(clinicService.findAllByDoctorAndPatient(doctorId, patientId),
+//				HttpStatus.OK);
+//	}
+
 	@GetMapping("/{id}")
-	public ResponseEntity<Clinic> getByIdClinic(@PathVariable Integer id)
-	{
-		try {
-		Clinic clinic =	clinicService.findById(id);
-		clinicService.saveClinic(clinic);
-		
-		return new ResponseEntity<Clinic>(clinic,HttpStatus.NOT_FOUND);
-			
-		} catch (NoSuchElementException e) {
-			return new ResponseEntity<Clinic>(HttpStatus.NOT_FOUND);
-		}
+	public ResponseEntity<Clinic> getByIdClinic(@PathVariable Integer id) {
+		Clinic clinic = clinicService.findById(id);
+
+		return new ResponseEntity<Clinic>(clinic, HttpStatus.OK);
+
 	}
-	
-	@PostMapping("/addclinic")
-	public void saveClinic(@RequestBody Clinic clinic)
-	{
-		clinicService.saveClinic(clinic);
+
+	@PostMapping("/addclinic/{doctorId}/{patientId}")
+	public void saveClinic(@RequestBody Clinic clinic,@PathVariable Long doctorId,@PathVariable Long patientId) {
+		clinicService.saveClinic(clinic,doctorId,patientId);
 	}
-	
+
 	@DeleteMapping("/{id}")
-	public void deleteClinic(@PathVariable Integer id)
-	{
+	public void deleteClinic(@PathVariable Integer id) {
 		clinicService.deleteClinic(id);
 	}
 }
-
-
