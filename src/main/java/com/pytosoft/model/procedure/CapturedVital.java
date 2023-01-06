@@ -8,7 +8,6 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.BatchSize;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 import com.pytosoft.model.Patient;
@@ -29,42 +28,40 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "captured_vital")
 @BatchSize(size = 20)
-public class CapturedVital /* implements SingleTenantOwned */
-{
+
+public class CapturedVital {
 	private static final long serialVersionUID = 3677985084623366300L;
 
 	public static final String VITAL_PARAM_VALUES = "vitalParamValues";
 
 	public static final String ID = "id";
-	
+
 	public static final String PROCEDURE = "procedure";
-	
+
 	public static final String VISIT = "visit";
 
 	private Long id;
 
 	@NotNull(groups = { Default.class }, message = "{capturedVitals.vitalParamValues.notNull}")
 	@Valid
-	@JsonDeserialize(as=SortedSet.class)
+	@JsonDeserialize(as = SortedSet.class)
 	private SortedSet<VitalParamValue> vitalParamValues;
-	
+
 	private Procedure procedure;
-	
+
 	private Patient patient;
-	
+
 	private Visit visit;
 
 //	private Tenant tenant;
-	
+
 	private Date createdOn;
 
-	public CapturedVital()
-	{
+	public CapturedVital() {
 
 	}
 
-	public CapturedVital(Long id)
-	{
+	public CapturedVital(Long id) {
 		super();
 		this.id = id;
 	}
@@ -72,13 +69,11 @@ public class CapturedVital /* implements SingleTenantOwned */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "Id")
-	public Long getId()
-	{
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Long id)
-	{
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -116,7 +111,7 @@ public class CapturedVital /* implements SingleTenantOwned */
 	public void setProcedure(Procedure procedure) {
 		this.procedure = procedure;
 	}
-	
+
 	@ManyToOne(fetch = FetchType.LAZY, optional = true)
 	@JoinColumn(name = "Visit_Id", referencedColumnName = "Id")
 	public Visit getVisit() {
@@ -137,8 +132,7 @@ public class CapturedVital /* implements SingleTenantOwned */
 		this.patient = patient;
 	}
 
-	public boolean hasId()
-	{
+	public boolean hasId() {
 		return id != null && id > 0;
 	}
 
@@ -150,5 +144,5 @@ public class CapturedVital /* implements SingleTenantOwned */
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
-	
+
 }
