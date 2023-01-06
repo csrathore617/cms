@@ -75,7 +75,7 @@ public class LabTestReferral
 	@JoinColumn(name = "Refered_By", referencedColumnName = "id")
 	private Doctor referedBy;
 
-	@NotNull(groups = { CreateEntity.class }, message = "{referedDiagnosisPrescription.referedTo.notNull}")
+	@NotNull( message = "{referedDiagnosisPrescription.referedTo.notNull}")
 	@Valid
 	private Lab referedTo;
 
@@ -123,9 +123,9 @@ public class LabTestReferral
 //		this.referedBy = referedBy;
 //	}
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	@JoinColumn(name = "Refered_To", referencedColumnName = "Id")
-	@Fetch(FetchMode.SELECT)
+	//@Fetch(FetchMode.SELECT)
 	public Lab getReferedTo() {
 		return referedTo;
 	}
