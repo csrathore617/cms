@@ -395,7 +395,11 @@ public class Clinic
 
 
 
+
 	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id")
+
+	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id" /*, nullable = false*/)
+
 
 	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id" /*, nullable = false*/)
 
@@ -419,7 +423,11 @@ public class Clinic
 
 
 
+
 	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id")
+
+	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id" )
+
 
 	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id" )
 
