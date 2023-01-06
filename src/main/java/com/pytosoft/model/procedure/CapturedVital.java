@@ -1,13 +1,18 @@
-package com.pytosoft.model;
+package com.pytosoft.model.procedure;
 
 import java.util.Date;
 import java.util.SortedSet;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.annotations.BatchSize;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
-import com.pytosoft.model.procedure.Procedure;
+import com.pytosoft.model.Patient;
+import com.pytosoft.model.Visit;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -24,7 +29,9 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "captured_vital")
 @BatchSize(size = 20)
-public class CapturedVital {
+public class CapturedVital /* implements SingleTenantOwned */
+{
+	private static final long serialVersionUID = 3677985084623366300L;
 
 	public static final String VITAL_PARAM_VALUES = "vitalParamValues";
 
@@ -36,6 +43,10 @@ public class CapturedVital {
 
 	private Long id;
 
+	@NotNull(groups = { Default.class }, message = "{capturedVitals.vitalParamValues.notNull}")
+	@Valid
+	@JsonDeserialize(as=SortedSet.class)
+	private SortedSet<VitalParamValue> vitalParamValues;
 	
 	private Procedure procedure;
 	
@@ -43,6 +54,7 @@ public class CapturedVital {
 	
 	private Visit visit;
 
+//	private Tenant tenant;
 	
 	private Date createdOn;
 
@@ -58,7 +70,7 @@ public class CapturedVital {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "Id")
 	public Long getId()
 	{
@@ -70,6 +82,30 @@ public class CapturedVital {
 		this.id = id;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@Sort(comparator = VitalParamValueComparator.class, type = SortType.COMPARATOR)
+	@JoinColumn(name = "Captured_Vital_Id", nullable = false)
+	public SortedSet<VitalParamValue> getVitalParamValues() {
+		return vitalParamValues;
+	}
+
+	public void setVitalParamValues(SortedSet<VitalParamValue> vitalParamValues) {
+		this.vitalParamValues = vitalParamValues;
+	}
+
+//	@ManyToOne(fetch = FetchType.LAZY, optional = true)
+//	@JoinColumn(name = "Tenant_Id", referencedColumnName = "Id")
+//	@JSON(include = false)
+//	@JsonIgnore
+//	public Tenant getTenant()
+//	{
+//		return tenant;
+//	}
+//
+//	public void setTenant(Tenant tenant)
+//	{
+//		this.tenant = tenant;
+//	}
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = true)
 	@JoinColumn(name = "Procedure_Id", referencedColumnName = "Id")
@@ -116,5 +152,3 @@ public class CapturedVital {
 	}
 	
 }
-
-
