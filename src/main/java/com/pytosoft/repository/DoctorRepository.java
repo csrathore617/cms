@@ -1,5 +1,6 @@
 package com.pytosoft.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,6 +16,7 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long>,CustomDoct
 	
 	Optional<Doctor> findByDoctorName(String doctorName);
 	
+	
 	boolean existsByDoctorName(String doctorName);
 	
 	Optional<Long> countByDoctorName(String doctorName);
@@ -22,7 +24,7 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long>,CustomDoct
 	void deleteByDoctorName(String doctorName);
 	
 //	ListResponse findAllByClinic(Doctor doctor, Clinic clinic);
-	@Query("select dp from DegreePassed dp where id = ?1 ")
+	@Query("select dp from DegreePassed dp where dp.id = ?1 ")
 	DegreePassed findByDegreePassedId(Long id);
 	
 	@Modifying 

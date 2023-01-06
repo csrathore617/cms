@@ -132,7 +132,6 @@ public class Clinic
 	@Valid
 	private Set<AvailableFacility> availableFacilities;
 
-	@Valid
 	private Set<OperatingDaysHours> operatingDaysHours;
 //
 //	private Tenant tenant;
@@ -368,7 +367,7 @@ public class Clinic
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id", nullable = false)
+	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id" /*, nullable = false*/)
 	public Set<PaymentMode> getAcceptedPaymentModes()
 	{
 		return acceptedPaymentModes;
@@ -380,7 +379,7 @@ public class Clinic
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id", nullable = false)
+	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id" )
 	public Set<OperatingDaysHours> getOperatingDaysHours()
 	{
 		return operatingDaysHours;

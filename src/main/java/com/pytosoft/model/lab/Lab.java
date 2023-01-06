@@ -105,7 +105,7 @@ public class Lab /* implements SingleTenantOwned */
 	
 	private boolean active;
 	
-	private Hospital hospital;
+//	private Hospital hospital;
 
 	public Lab()
 	{
@@ -243,16 +243,16 @@ public class Lab /* implements SingleTenantOwned */
 	 * availableMedicalTests) { this.availableMedicalTests = availableMedicalTests;
 	 * }
 	 */
-
-	@ManyToOne(fetch = FetchType.LAZY, optional = true)
-	@JoinColumn(name = "Hospital_Id", referencedColumnName = "hospitalId")
-	public Hospital getHospital() {
-		return hospital;
-	}
-
-	public void setHospital(Hospital hospital) {
-		this.hospital = hospital;
-	}
+	
+//	@ManyToOne(fetch = FetchType.LAZY, optional = true)
+//	@JoinColumn(name = "Hospital_Id", referencedColumnName = "hospitalId")
+//	public Hospital getHospital() {
+//		return hospital;
+//	}
+//
+//	public void setHospital(Hospital hospital) {
+//		this.hospital = hospital;
+//	}
 
 	/*
 	 * @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional =
