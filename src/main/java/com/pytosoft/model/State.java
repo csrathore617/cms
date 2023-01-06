@@ -6,11 +6,12 @@ package com.pytosoft.model;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.BatchSize;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 
 @Entity
@@ -18,7 +19,7 @@ import jakarta.persistence.*;
 //@BatchSize(size = 10)
 public class State 
 {
-	private static final long serialVersionUID = 2579793149287470218L;
+	//private static final long serialVersionUID = 2579793149287470218L;
 
 	public static final String COUNTRY = "country";
 

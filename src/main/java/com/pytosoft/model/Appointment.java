@@ -17,6 +17,7 @@ import com.pytosoft.model.scheduling.DoctorClinicAssignment;
 import com.pytosoft.util.JsonDateDeserializer;
 import com.pytosoft.util.JsonTimeDeserializer;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -96,7 +97,7 @@ public class Appointment {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id")
 	public Long getId() {
 		return id;
@@ -119,7 +120,7 @@ public class Appointment {
 		return status;
 	}
 
-	@Column(name = "Created_On", nullable = false)
+	@Column(name = "Created_On",nullable = true)
 	public Date getCreatedOn() {
 		return createdOn;
 	}
@@ -145,7 +146,7 @@ public class Appointment {
 		return doctorClinicAssignment;
 	}
 
-	@Column(name = "Appointment_Date", nullable = false)
+	@Column(name = "Appointment_Date", nullable = true)
 	public Date getAppointmentDate() {
 		return appointmentDate;
 	}
@@ -295,28 +296,28 @@ public class Appointment {
 //	}
 
 	@Column(name = "Start_Time", nullable = true)
-	@Temporal(TemporalType.TIME)
+//	@Temporal(TemporalType.TIME)
 	public Date getStartTime() {
 		return startTime;
 	}
 
-	@JsonDeserialize(using = JsonTimeDeserializer.class)
+//	@JsonDeserialize(using = JsonTimeDeserializer.class)
 	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
 
 	@Column(name = "End_Time", nullable = true)
-	@Temporal(TemporalType.TIME)
+//	@Temporal(TemporalType.TIME)
 	public Date getEndTime() {
 		return endTime;
 	}
 
-	@JsonDeserialize(using = JsonTimeDeserializer.class)
+//	@JsonDeserialize(using = JsonTimeDeserializer.class)
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = true)
+	@ManyToOne(fetch = FetchType.LAZY, optional = true,cascade = CascadeType.ALL)
 	@JoinColumn(name = "Billable_Service", referencedColumnName = "Id")
 	public BillableService getBillableService() {
 		return billableService;
@@ -344,7 +345,8 @@ public class Appointment {
 		this.walkin = walkin;
 	}
 
-	@OneToOne(mappedBy = "appointment", fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "appointment", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+//	@JoinColumn(name = "appointment_ID", referencedColumnName = "Id")
 	public LabOrder getLabOrder() {
 		return labOrder;
 	}

@@ -11,48 +11,59 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pytosoft.model.Hospital;
 import com.pytosoft.service.HospitalService;
+import com.pytosoft.vo.ListResponse;
 
 @RestController
+@RequestMapping("/hospital")
 public class HospitalController {
 
 	@Autowired
 	private HospitalService hospitalService;
 	
+//	@GetMapping("/getAll")
+//	public ResponseEntity<ListResponse> getAllHospitals()
+//	{
+//		List<Hospital> result= hospitalService.getAll();
+//		return new ResponseEntity<ListResponse> (new ListResponse(result.size(),result.size(),result),HttpStatus.OK);
+//	}
+	
 	@GetMapping("/getAll")
-	public List<Hospital> list()
+	public ResponseEntity<List<Hospital>> getAllHospitals()
 	{
-		return hospitalService.listAll();
+		return new ResponseEntity<List<Hospital>> (hospitalService.getAll(),HttpStatus.OK);
 	}
 	
 	@PostMapping("/add")
-	public String add(@RequestBody Hospital hospital)
+	public ResponseEntity<String> add(@RequestBody Hospital hospital)
 	{
 		hospitalService.save(hospital);
-		return "saved successfully";
+		return new ResponseEntity<String>("saved successfully",HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{Id}")
-	public String delete(@PathVariable Integer Id)
+	public ResponseEntity<String> delete(@PathVariable Integer Id)
 	{
+		
 		hospitalService.deleteById(Id);
-		return "Deleted Successfully";
+		return new ResponseEntity<String>("Hospital is not active now",HttpStatus.OK);
 	}
 	
 	@GetMapping("/{Id}")
 	public ResponseEntity<Hospital> getById(@PathVariable Integer Id)
 	{
-		try {
-			
 			Hospital hospital=hospitalService.getById(Id);
-			hospitalService.save(hospital);
-			return new ResponseEntity<Hospital>(hospital, HttpStatus.NOT_FOUND);
-		} catch(NoSuchElementException noSuchElementException) {
-			return new ResponseEntity<Hospital>(HttpStatus.NOT_FOUND);
-		}
+			return new ResponseEntity<Hospital>(hospital, HttpStatus.OK);
 	}
 	
+	@GetMapping("/getBy/{hospitalName}")
+	public ResponseEntity<List<Hospital>> searchByName(@PathVariable("hospitalName") String hospitalName)
+	{
+		List<Hospital> hospital=hospitalService.searchByName(hospitalName);
+		return new ResponseEntity<List<Hospital>>(hospital,HttpStatus.OK);
+	}
 }

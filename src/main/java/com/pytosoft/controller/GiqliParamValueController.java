@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.pytosoft.model.GiqliParamValue;
+import com.pytosoft.model.Patient;
 import com.pytosoft.service.GiqliParamValueService;
 
 @Controller
@@ -30,27 +31,17 @@ public class GiqliParamValueController {
 		return new ResponseEntity<GiqliParamValue>(saved,HttpStatus.OK);
 	}
 
-//	@GetMapping("/params")
-//	public ResponseEntity<List<GiqliParamValue>> getAllGiqliParamValue() {
-//		List<GiqliParamValue> giqliParams = giqliParamValueService.getAllGiqliParamValue();
-//
-//		return new ResponseEntity<List<GiqliParamValue>>(HttpStatus.OK);
-//	}
+	@GetMapping("/params")
+	public ResponseEntity<List<GiqliParamValue>> getAllGiqliParamValue() {
+		return new ResponseEntity<List<GiqliParamValue>>(giqliParamValueService.getAllGiqliParamValue(),HttpStatus.OK);
+	}
 
 	@GetMapping("/paramsvalue/{id}")
 	public ResponseEntity<GiqliParamValue> get(@PathVariable Long id) {
 		GiqliParamValue giqliParamValue = giqliParamValueService.getGiqliParamValueById(id);
 		giqliParamValueService.saveGiqli(giqliParamValue);
-		return new ResponseEntity<GiqliParamValue>(giqliParamValue, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<GiqliParamValue>(giqliParamValue, HttpStatus.OK);
 	}
-
-//	@PutMapping("/paramsGiqli")
-//	public GiqliParamValue updateGIQLIParamValue(@RequestBody GiqliParamValue giqliParamValue,
-//			@PathVariable("id") Long id) {
-//		return giqliParamValueService.updateGiqliParamValue(giqliParamValue, id);
-//
-//	}
-
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> delete(@PathVariable Long id) {
