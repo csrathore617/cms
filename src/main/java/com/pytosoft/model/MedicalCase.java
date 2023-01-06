@@ -25,20 +25,11 @@ public class MedicalCase {
 	private Integer id;
 
 	private String name;
-	
-	
-<<<<<<< HEAD
-	
+
 //	@JsonIgnore
 // @Exists(message="{patent.exist}")
 	private Patient patient;
 
-	
-	
-=======
-	private Patient patient;
-
->>>>>>> main
 	private Doctor doctor;
 
 	private Date createdOn;
@@ -62,26 +53,16 @@ public class MedicalCase {
 		this.id = id;
 	}
 
-<<<<<<< HEAD
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "Doctor_Id", referencedColumnName = "id")
-=======
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "Doctor_Id", referencedColumnName = "Id")
 //	@Exists(message="{doctor.exist}")
->>>>>>> main
-	public Doctor getDoctor()
-	{
+
+	public Doctor getDoctor() {
 		return doctor;
 	}
-<<<<<<< HEAD
-	public void setDoctor(Doctor doctor)
-	{
-=======
 
 	public void setDoctor(Doctor doctor) {
 
->>>>>>> main
 		this.doctor = doctor;
 	}
 
@@ -91,58 +72,26 @@ public class MedicalCase {
 	public Integer getId() {
 		return id;
 	}
-<<<<<<< HEAD
-
-	@Column(name = "Name", nullable = false, length = 50)
-	public String getName()
-	{
-		return name;
-	}
-
-	@ManyToOne(optional = false, fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-	@JoinColumn(name = "Patient_Id", referencedColumnName = "id")
-	public Patient getPatient()
-	{
-		return patient;
-	}
-
-	public void setPatient(Patient patient)
-	{
-		this.patient = patient;
-	}
-
-	public void setId(Integer id)
-	{
-=======
-	public void setId(Integer id) {
->>>>>>> main
-		this.id = id;
-	}
-
-
-
-	@ManyToOne(optional = false, fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-	@JoinColumn(name = "Patent_Id", referencedColumnName = "id")
-//	@JsonIgnore
-// @Exists(message="{patent.exist}")
-	public Patient getPatient()
-	{
-		return patient;
-	}
-
-	public void setPatient(Patient patient)
-	{
-		this.patient = patient;
-	}
 
 	@Column(name = "Name", nullable = false, length = 50)
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "Patient_Id", referencedColumnName = "id")
+	public Patient getPatient() {
+		return patient;
 	}
 
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
+	public void setId(Integer id) {
+
+		this.id = id;
+	}
 
 //	@OneToMany(mappedBy = "medicalCase", fetch = FetchType.LAZY)
 //	public List<Visit> getVisits()

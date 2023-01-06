@@ -3,7 +3,10 @@ package com.pytosoft.model;
 import java.util.Date;
 import java.util.Set;
 
-
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -389,11 +392,15 @@ public class Clinic
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-<<<<<<< HEAD
+
+
 	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id")
-=======
+
 	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id" /*, nullable = false*/)
->>>>>>> main
+
+
+	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id" /*, nullable = false*/)
+
 	public Set<PaymentMode> getAcceptedPaymentModes()
 	{
 		return acceptedPaymentModes;
@@ -405,11 +412,15 @@ public class Clinic
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-<<<<<<< HEAD
+
+
 	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id")
-=======
+
 	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id" )
->>>>>>> main
+
+
+	@JoinColumn(name = "Clinic_Id", referencedColumnName = "Id" )
+
 	public Set<OperatingDaysHours> getOperatingDaysHours()
 	{
 		return operatingDaysHours;
