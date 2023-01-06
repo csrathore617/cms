@@ -4,14 +4,18 @@ import com.pytosoft.constants.DegreeType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@Entity@Table(name = "degree")
+@Entity
+@Table(name = "degree")
 public class Degree {
-	@Id@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Short id;
 
 	@Column(name = "degree_name")
@@ -22,9 +26,9 @@ public class Degree {
 	// for ui only
 	@Column(name = "other_degree_name")
 	private String otherDegreeName;
-	
-	private DegreeType degreeType;
 
+	@Enumerated(EnumType.STRING)
+	private DegreeType degreeType;
 
 	public Short getId() {
 		return id;
@@ -65,6 +69,5 @@ public class Degree {
 	public void setOtherDegreeName(String otherDegreeName) {
 		this.otherDegreeName = otherDegreeName;
 	}
-	
 
 }
