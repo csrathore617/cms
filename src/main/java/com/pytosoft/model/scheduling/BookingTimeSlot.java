@@ -64,13 +64,13 @@ public class BookingTimeSlot
 		return id;
 	}
 
-	@Column(name = "Start_Time", nullable = false)
+	@Column(name = "Start_Time", nullable = true)
 	public Date getStart()
 	{
 		return start;
 	}
 
-	@Column(name = "End_Time", nullable = false)
+	@Column(name = "End_Time", nullable = true)
 	public Date getEnd()
 	{
 		return end;

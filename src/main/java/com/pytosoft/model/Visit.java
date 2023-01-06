@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import com.pytosoft.model.procedure.CapturedVital;
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.pytosoft.model.procedure.PrescribedLabTest;
 import com.pytosoft.util.JsonDateDeserializer;
@@ -32,11 +34,11 @@ public class Visit
 
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id")
 	private Long id;
 
-	@Column(name = "Visit_Date", nullable = false)
+	@Column(name = "Visit_Date", nullable = true)
 	private Date date;
 
 	@ManyToOne(/* optional = false, */ fetch = FetchType.LAZY,cascade = CascadeType.ALL)
@@ -93,8 +95,8 @@ public class Visit
 
 //	private Set<TenantVisitMapping> tenantVisitMappings;
 	
-//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "visit")
-//	private Set<CapturedVital> capturedVitals;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "visit")
+	private Set<CapturedVital> capturedVitals;
 	
 	
 	
@@ -267,7 +269,7 @@ public class Visit
 		this.visitAttachment = visitAttachment;
 	}
 
-	@Column(name = "Created_On", nullable = false)
+	@Column(name = "Created_On", nullable = true)
 	public Date getCreatedOn()
 	{
 		return createdOn;
@@ -288,7 +290,5 @@ public class Visit
 	{
 		this.prescribedLabTests = prescribedLabTests;
 	}
-
-	
 
 }
