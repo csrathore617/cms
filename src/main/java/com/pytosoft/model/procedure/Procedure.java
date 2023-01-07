@@ -78,7 +78,7 @@ public class Procedure
 	private Set<DiagnosedDisease> diagnosedDiseases;
 	
 	
-//	private Set<CapturedVital> capturedVitals;
+	private Set<CapturedVital> capturedVitals;
 	
 	
 //	private Set<ImplantTaken> implantsTaken;

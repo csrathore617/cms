@@ -23,6 +23,7 @@ import jakarta.persistence.Table;
 public class Referral 
 {
 
+	@SuppressWarnings("unused")
 	private static final long serialVersionUID = -1439206752109682859L;
 
 	public static final String REFERRED_TO = "referredTo";
@@ -67,8 +68,8 @@ public class Referral
 
 	private Boolean patientAddedByDoctor;
 
-//	@Valid
-//	private Set<ReferredVisit> referredVisits;
+	@Valid
+	private Set<ReferredVisit> referredVisits;
 	
 	@Valid
 	private Set<ReferredProcedure> referredProcedures;
@@ -94,7 +95,7 @@ public class Referral
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id")
 	public Long getId()
 	{
@@ -154,15 +155,16 @@ public class Referral
 		this.medicalCase = medicalCase;
 	}
 
-//	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "referral")
-//	public Set<ReferredVisit> getReferredVisits()
-//	{
-//		return referredVisits;
-//	}
-//	public void setReferredVisits(Set<ReferredVisit> referredVisits)
-//	{
-//		this.referredVisits = referredVisits;
-//	}
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "referral_id", referencedColumnName = "Id")
+	public Set<ReferredVisit> getReferredVisits()
+	{
+		return referredVisits;
+	}
+	public void setReferredVisits(Set<ReferredVisit> referredVisits)
+	{
+		this.referredVisits = referredVisits;
+	}
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "referral_id", referencedColumnName = "Id")
@@ -183,7 +185,8 @@ public class Referral
 //		this.referredPosas = referredPosas;
 //	}
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "referral")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "referral_id", referencedColumnName = "Id")
 	public Set<ReferredGiqli> getReferredGiqlis() {
 		return referredGiqlis;
 	}

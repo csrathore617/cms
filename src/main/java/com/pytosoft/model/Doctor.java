@@ -1,8 +1,6 @@
 package com.pytosoft.model;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Value;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,8 +11,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-
-import com.pytosoft.model.DegreePassed;
 
 
 

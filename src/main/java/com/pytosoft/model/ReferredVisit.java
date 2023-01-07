@@ -3,6 +3,7 @@ package com.pytosoft.model;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -30,7 +31,7 @@ public class ReferredVisit
 	@Valid
 	private Visit visit;
 
-	private Referral referral;
+//	private Referral referral;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,7 +47,7 @@ public class ReferredVisit
 		this.id = id;
 	}
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	@JoinColumn(name = "Visit_Id", referencedColumnName = "Id")
 	public Visit getVisit()
 	{
@@ -58,16 +59,16 @@ public class ReferredVisit
 		this.visit = visit;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "Referral_Id", referencedColumnName = "Id", nullable = false)
-	public Referral getReferral()
-	{
-		return referral;
-	}
-
-	public void setReferral(Referral referral)
-	{
-		this.referral = referral;
-	}
+//	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+//	@JoinColumn(name = "Referral_Id", referencedColumnName = "Id", nullable = false)
+//	public Referral getReferral()
+//	{
+//		return referral;
+//	}
+//
+//	public void setReferral(Referral referral)
+//	{
+//		this.referral = referral;
+//	}
 
 }

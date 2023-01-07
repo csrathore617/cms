@@ -30,7 +30,7 @@ public class ReferredGiqli
 	@Valid
 	private Giqli giqli;
 
-	private Referral referral;
+//	private Referral referral;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -57,16 +57,16 @@ public class ReferredGiqli
 		this.giqli = giqli;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "Referral_Id", referencedColumnName = "Id", nullable = false)
-	public Referral getReferral()
-	{
-		return referral;
-	}
-
-	public void setReferral(Referral referral)
-	{
-		this.referral = referral;
-	}
+//	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+//	@JoinColumn(name = "Referral_Id", referencedColumnName = "Id", nullable = false)
+//	public Referral getReferral()
+//	{
+//		return referral;
+//	}
+//
+//	public void setReferral(Referral referral)
+//	{
+//		this.referral = referral;
+//	}
 
 }
