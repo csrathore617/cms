@@ -38,7 +38,7 @@ public class MedicineController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Medicine> getMedicineById(@PathVariable Long id) {
 		try {
-			Medicine medicine = medicineService.getByID(id);
+			Medicine medicine = medicineService.findByID(id);
 			medicineService.save(medicine);
 			return new ResponseEntity<Medicine>(medicine, HttpStatus.OK);
 
