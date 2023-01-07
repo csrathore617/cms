@@ -37,7 +37,7 @@ public class MedicineService {
 		medicineRepository.save(medicine);
 	}
 
-	public Medicine getByID(Long id) {
+	public Medicine findByID(Long id) {
 		return medicineRepository.findById(id).get();
 	}
 
