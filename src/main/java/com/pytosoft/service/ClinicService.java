@@ -14,31 +14,36 @@ public class ClinicService {
 
 	@Autowired
 	private ClinicRepository clinicRepository;
-	
-	public List<Clinic> getAllClinic()
-	{
+
+	public List<Clinic> getAllClinic() {
 		return clinicRepository.findAll();
 	}
-	
-	public Clinic findById(Integer id)
-	{
+
+	public List<Clinic> findByDocId(Long docId) {
+		return clinicRepository.getByDoctorId(docId);
+	}
+
+	public List<Clinic> findByPatientId(Long patientId) {
+		return clinicRepository.getByPatientId(patientId);
+	}
+
+	public List<Clinic> findByDocIdAndPatientId(Long docId, Long patientId) {
+		return clinicRepository.getByDoctorIdAndPatientId(docId, patientId);
+	}
+
+	public Clinic findById(Integer id) {
 		return clinicRepository.findById(id).get();
 	}
-	
-	public void saveClinic(Clinic clinic)
-	{
+
+	public void saveClinic(Clinic clinic) {
 		clinicRepository.save(clinic);
 	}
-	
 
-	public void deleteClinic(Integer id)
-	{
-		clinicRepository.deleteById(id);
+	public void deleteClinic(Integer id) {
+		Clinic clinic = clinicRepository.findById(id).get();
+		clinic.setActive(false);
+
+		clinicRepository.save(clinic);
 	}
-	
-//	public void updateClinic(Clinic clinic)
-//	{
-//		clinicRepository.(clinic);
-//	}
-	
+
 }
