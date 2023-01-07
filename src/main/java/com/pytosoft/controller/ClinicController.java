@@ -35,11 +35,11 @@ public class ClinicController {
 
 	@GetMapping("/getAllByPatientId/{id}")
 	public ResponseEntity<List<Clinic>> findByPatientId(@PathVariable Long PatientId) {
-		return new ResponseEntity<List<Clinic>>(clinicService.findByPatientId(PatientId), HttpStatus.OK);
+		return new ResponseEntity<List<Clinic>>(clinicService.findByPatientId(PatientId),  HttpStatus.OK);
 	}
 
 	@GetMapping("/getAllByDocIdAndPatientId/{DocId}/{PatientId}")
-	public ResponseEntity<List<Clinic>> findByPatientId(@PathVariable Long DocId, @PathVariable Long PatientId) {
+	public ResponseEntity<List<Clinic>> findByPatientIdAndDocId(@PathVariable Long DocId, @PathVariable Long PatientId) {
 		return new ResponseEntity<List<Clinic>>(clinicService.findByDocIdAndPatientId(DocId, PatientId), HttpStatus.OK);
 	}
 
