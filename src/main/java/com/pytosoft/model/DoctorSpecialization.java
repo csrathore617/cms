@@ -21,7 +21,7 @@ public class DoctorSpecialization {
 	private Integer id;
 
 	// @NotNull(message = "{doctorSpecialization.specialization.notNull}")
-//	@Valid
+	// @Valid
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "Specialization_Id", referencedColumnName = "Id")

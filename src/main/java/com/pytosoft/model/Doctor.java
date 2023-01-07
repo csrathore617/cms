@@ -1,7 +1,6 @@
 package com.pytosoft.model;
-import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Value;
+import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -13,10 +12,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-
-import com.pytosoft.model.DegreePassed;
-
-
 
 @Entity
 @Table(name = "Doctors")
@@ -46,29 +41,24 @@ public class Doctor {
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name ="doctor_name")
+	@Column(name = "doctor_name")
 	private String doctorName;
 
-	
-	
-	@Column(name ="doctor_specialization")
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,targetEntity = DoctorSpecialization.class)
+	@Column(name = "doctor_specialization")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = DoctorSpecialization.class)
 	@JoinColumn(name = "Doctor_id", referencedColumnName = "Id")
 	private Set<DoctorSpecialization> doctorSpecializations;
 
-	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Doctor_id", referencedColumnName = "Id")
 	@Column(name = "degrees_passed")
 	private Set<DegreePassed> degreesPassed;
 
-	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Doctor_Id", referencedColumnName = "Id", nullable = false)
 	@Column(name = "experties")
 	private Set<Expertise> expertises;
 
-	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Doctor_Id", referencedColumnName = "Id", nullable = false)
 	@Column(name = "experiences")
@@ -76,7 +66,7 @@ public class Doctor {
 
 	@Column(name = "accepts_new_patient")
 	private boolean acceptsNewPatient;
-	
+
 	@Column(name = "available_for_home_visit")
 	private boolean availableForHomeVisit;
 
@@ -99,8 +89,7 @@ public class Doctor {
 	public void setDoctorName(String doctorName) {
 		this.doctorName = doctorName;
 	}
-	
-	
+
 	public Set<DoctorSpecialization> getDoctorSpecializations() {
 		return doctorSpecializations;
 	}
@@ -108,7 +97,7 @@ public class Doctor {
 	public void setDoctorSpecializations(Set<DoctorSpecialization> doctorSpecializations) {
 		this.doctorSpecializations = doctorSpecializations;
 	}
-	
+
 	public Set<DegreePassed> getDegreesPassed() {
 		return degreesPassed;
 	}
@@ -139,7 +128,7 @@ public class Doctor {
 		super();
 		this.doctorName = doctorName;
 	}
-	
+
 	public Set<Expertise> getExpertises() {
 		return expertises;
 	}
@@ -147,7 +136,7 @@ public class Doctor {
 	public void setExpertises(Set<Expertise> expertises) {
 		this.expertises = expertises;
 	}
-	
+
 	public Set<Experience> getExperiences() {
 		return experiences;
 	}
